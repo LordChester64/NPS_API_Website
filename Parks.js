@@ -34,8 +34,8 @@ async function getParkInfo(code) {
 function getParkDescription(code) {
     getParkInfo(code).then(parkInfo => {
         console.log(`${parkInfo}`); 
-        document.getElementById('parkTitle').innerText = parkInfo.name;
-        document.getElementById('parkDescription').innerText = parkInfo.description;
+        document.getElementById('parkFullName').innerText = parkInfo.fullName;
+        document.getElementById('parkStates').innerText = parkInfo.states;
         });
 }
 

@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>National Park Cards</title>
+        <link href="styles.css" rel="stylesheet">
         <script src="./.env"></script> 
         <script src="./Parks.js"></script> 
         <script>
             function testFunction(param1){
                 var result = getParkDescription(getCode(param1));
-                
             }
         </script>
     </head>    
     <body>
 
+        <div class="searchButton">
+            <input type="text" id="searchedName">
+            <button onclick="testFunction(document.getElementById('searchedName').value)">Get Park Info</button>
+            <hr />
+        </div><!-- end searchButton -->
+        
         <div class="container">
-            <div class="searchButton">
-                <input type="text" id="searchedName">
-                <button onclick="testFunction(document.getElementById('parkName').value)">Get Park Info</button>
-                <hr />
-            </div><!-- end searchButton -->
+            
             
             <div class="header">
                 
-                <div id="parkfullName">
+                <div id="parkFullName">
 
                 </div>
 
-                <div id="parkState">
+                <div id="parkStates">
 
                 </div>
             </div><!-- end header -->
