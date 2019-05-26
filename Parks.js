@@ -40,9 +40,11 @@ function getParkDescription(code) {
         document.getElementById('parkDescription').innerText = parkInfo.description;
         document.getElementById("parkCode").innerText = "Park Code: " + parkInfo.parkCode;
         document.getElementById("parkID").innerText = "Park ID: " + parkInfo.id;
-        document.getElementById("parkCampgrounds").innerHTML = getCampgroundList(parkInfo);
         image(parkInfo.images[0].url)
         });
+    getCampgroundsInfo(code).then(campgroundsInfo => {
+        buildCampgroundList(campgroundsInfo);
+    });
 }
 
 function image(imgURL) {
@@ -53,18 +55,19 @@ function image(imgURL) {
     document.getElementById("parkPicture").src = imgURL;
 }
 
-async function getCampgroundList(code) {
-    const response = await fetch(`https://developer.nps.gov/api/v1/campgrounds?parkCode=${code}&fields=images&api_key=${config.API_Key}`);
+async function getCampgroundsInfo(code) {
+    const response = await fetch(`https://developer.nps.gov/api/v1/campgrounds?parkCode=${code}&api_key=${config.API_Key}`);
     const responseData = await response.json();
-    const parkInfo = responseData.data;
-    parkInfo.then(campgroundInfo => {
-        campgroundList = "";
-        countOfCampgrounds = campgroundInfo.length;
-        for (i = 0; i <= countOfCampgrounds; i++){
-            campgroundList += `<li class="campgroundItem"><a href="http://google.com">${campgroundInfo.name}</a></li>`;
-        }
-        document.getElementById("parkCampgrounds").innerHTML = getCampgroundList(parkInfo);
-        });
+    return await responseData.data;
+}
+
+function buildCampgroundList(campgroundInfo){
+    campgroundList = "";
+    countOfCampgrounds = campgroundInfo.length;
+    for (i = 0; i < countOfCampgrounds; i++){
+        campgroundList += `<li class="campgroundItem"><a href="http://google.com">${campgroundInfo[i].name}</a></li>`;
+    }
+    document.getElementById("parkCampgrounds").innerHTML = campgroundList;
 }
 
 
