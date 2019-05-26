@@ -24,7 +24,7 @@ function getCode(string) {
 
 async function getParkInfo(code) {
     console.log(config.API_Key);
-    const response = await fetch(`https://developer.nps.gov/api/v1/parks?parkCode=${code}&api_key=${config.API_Key}`);
+    const response = await fetch(`https://developer.nps.gov/api/v1/parks?parkCode=${code}&fields=images&api_key=${config.API_Key}`);
 
     const responseData = await response.json();
 
@@ -38,9 +38,19 @@ function getParkDescription(code) {
         document.getElementById('parkStates').innerText = "States: " + parkInfo.states;
         document.getElementById('parkName').innerText = "About the  " + parkInfo.designation;
         document.getElementById('parkDescription').innerText = parkInfo.description;
+        document.getElementById("parkCode").innerText = "Park Code: " + parkInfo.parkCode;
+        document.getElementById("parkID").innerText = "Park ID: " + parkInfo.id;
+
+        //image(parkInfo.images[0].url)
         });
 }
 
+function image(imgURL) {
+    var img = document.createElement("IMG");
+    img.src = imgURL;
+    img.class = "parkPicture";
+    document.getElementById("parkPicture").appendChild(img);
+}
 
 
 

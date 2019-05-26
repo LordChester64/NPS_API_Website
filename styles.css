@@ -23,6 +23,7 @@
     height: 600px;
     width: 450px;
     margin: 10px auto;
+    position: relative;
 }
 
 #parkFullName {
@@ -43,7 +44,7 @@
     background: gray;
     border: solid 3px lightgray;
     display: block;
-    margin: 35px auto;
+    margin: 35px auto 20px;
     clear: both;
     height: 250px;
     width: 350px;
@@ -53,10 +54,27 @@
     margin: 30px 30px 30px 30px;
 }
 
+.footer {
+    float: bottom;
+    background: rgb(21, 56, 30);
+    color: white;
+    height: 30px;
+    width: 450px;
+    position: absolute;
+    bottom: 0;
+    display: block;
+}
 
-/* .parkName {
-    margin: 10px 10px;
-} */
+#parkCode {
+    margin: 5px 3px;
+    float: left;
+}
+
+#parkID {
+    float: right;
+    font-size: 12px;
+    margin: 7px 3px;
+}
 
 
 
