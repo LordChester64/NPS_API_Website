@@ -15,7 +15,14 @@
     font-size: 16px;
 }
 
+.searchButton {
+    margin: 2px auto; 
+}
+
 .container {
-    background: rgb(8, 81, 190);
-    border: solid 2px rgb(246, 248, 124);
+    background: rgb(236, 193, 137);
+    border: solid 8px rgb(54, 99, 48);
+    height: 600px;
+    width: 450px;
+    margin: 10px auto;
 }
