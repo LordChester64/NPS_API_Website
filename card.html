@@ -1,1 +1,25 @@
-asfd
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="./.env"></script> 
+        <script src="./Parks.js"></script> 
+        <script>
+            function testFunction(param1){
+                var result = getParkDescription(getCode(param1));
+                
+            }
+        </script>
+    </head>    
+    <body>
+        <input type="text" id="parkName">
+        <button onclick="testFunction(document.getElementById('parkName').value)">Get Park Info</button>
+        <hr />
+        <div class="parkInfo" id="parkTitle">
+        
+        </div>
+        <hr />
+        <div class="parkInfo" id="parkDescription">
+
+        </div>
+    </body>
+</html>
