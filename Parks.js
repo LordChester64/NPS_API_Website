@@ -35,7 +35,9 @@ function getParkDescription(code) {
     getParkInfo(code).then(parkInfo => {
         console.log(`${parkInfo}`); 
         document.getElementById('parkFullName').innerText = parkInfo.fullName;
-        document.getElementById('parkStates').innerText = parkInfo.states;
+        document.getElementById('parkStates').innerText = "States: " + parkInfo.states;
+        document.getElementById('parkName').innerText = "About the  " + parkInfo.designation;
+        document.getElementById('parkDescription').innerText = parkInfo.description;
         });
 }
 

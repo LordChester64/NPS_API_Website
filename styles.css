@@ -11,8 +11,6 @@
 * {
     margin: 0;
     padding: 0;
-    font-weight: normal;
-    font-size: 16px;
 }
 
 .searchButton {
@@ -26,3 +24,41 @@
     width: 450px;
     margin: 10px auto;
 }
+
+#parkFullName {
+    font-family: Georgia, Times, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 3px 3px;
+    float: left;
+}
+
+#parkStates {
+    font-family: Georgia, Times, sans-serif;
+    margin: 8px 3px 0px;
+    float: right;
+}
+
+.parkPicture {
+    background: gray;
+    border: solid 3px lightgray;
+    display: block;
+    margin: 35px auto;
+    clear: both;
+    height: 250px;
+    width: 350px;
+}
+
+#body {
+    margin: 30px 30px 30px 30px;
+}
+
+
+/* .parkName {
+    margin: 10px 10px;
+} */
+
+
+
+
+
