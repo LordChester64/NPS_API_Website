@@ -8,10 +8,6 @@
 */
 
 /* Simple CSS Reset */
-* {
-    margin: 0;
-    padding: 0;
-}
 
 .searchButton {
     margin: 2px auto; 
@@ -20,8 +16,8 @@
 .container {
     background: rgb(236, 193, 137);
     border: solid 8px rgb(54, 99, 48);
-    height: 600px;
-    width: 450px;
+    height: 800px;
+    width: 650px;
     margin: 10px auto;
     position: relative;
 }
@@ -46,8 +42,8 @@
     display: block;
     margin: 35px auto 20px;
     clear: both;
-    height: 250px;
-    width: 350px;
+    height: 300px;
+    width: 400px;
 }
 
 #parkPicture {
@@ -56,7 +52,35 @@
 }
 
 #body {
-    margin: 30px 30px 30px 30px;
+    margin: 30px 30px 30px 15px;
+}
+
+.leftBox {
+    margin: 10px 0px;
+    border: double 3px rgb(21, 56, 30);
+    height: 250px;
+    width: 319px;
+    float: left;
+}
+
+#parkCenters {
+    overflow-y: scroll;
+}
+
+
+.rightBox {
+    margin: 10px 0px;
+    border: double 3px rgb(21, 56, 30);
+    height: 250px;
+    width: 319px;
+    float: right;
+}
+
+#parkCampgrounds {
+    overflow-y: scroll;
+    height: 100%;
+    width: 100%;
+    margin: 2px;
 }
 
 .footer {
@@ -64,7 +88,7 @@
     background: rgb(21, 56, 30);
     color: white;
     height: 30px;
-    width: 450px;
+    width: 650px;
     position: absolute;
     bottom: 0;
     display: block;
