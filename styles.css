@@ -40,7 +40,7 @@
     float: right;
 }
 
-.parkPicture {
+.parkPictureDiv {
     background: gray;
     border: solid 3px lightgray;
     display: block;
@@ -48,6 +48,11 @@
     clear: both;
     height: 250px;
     width: 350px;
+}
+
+#parkPicture {
+    height: auto;
+    width: 100%;
 }
 
 #body {

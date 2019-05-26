@@ -40,16 +40,16 @@ function getParkDescription(code) {
         document.getElementById('parkDescription').innerText = parkInfo.description;
         document.getElementById("parkCode").innerText = "Park Code: " + parkInfo.parkCode;
         document.getElementById("parkID").innerText = "Park ID: " + parkInfo.id;
-
-        //image(parkInfo.images[0].url)
+        image(parkInfo.images[0].url)
         });
 }
 
 function image(imgURL) {
-    var img = document.createElement("IMG");
-    img.src = imgURL;
-    img.class = "parkPicture";
-    document.getElementById("parkPicture").appendChild(img);
+    // var img = document.createElement("IMG");
+    // img.src = imgURL;
+    // img.style.height = "auto";
+    // img.style.width = "100%";
+    document.getElementById("parkPicture").src = imgURL;
 }
 
 
