@@ -17,7 +17,7 @@
     background: rgb(236, 193, 137);
     border: solid 8px rgb(54, 99, 48);
     height: 800px;
-    width: 650px;
+    width: 700px;
     margin: 10px auto;
     position: relative;
 }
@@ -59,7 +59,7 @@
     margin: 10px 0px;
     border: double 3px rgb(21, 56, 30);
     height: 250px;
-    width: 319px;
+    width: 49.125%;
     float: left;
 }
 
@@ -75,8 +75,16 @@
     margin: 10px 0px;
     border: double 3px rgb(21, 56, 30);
     height: 250px;
-    width: 319px;
+    width: 49.125%;
     float: right;
+}
+
+.rightBox h4 {
+    margin: 10px;
+}
+
+.leftBox h4 {
+    margin: 10px;
 }
 
 #parkCampgrounds {
@@ -91,7 +99,7 @@
     background: rgb(21, 56, 30);
     color: white;
     height: 30px;
-    width: 650px;
+    width: 100%;
     position: absolute;
     bottom: 0;
     display: block;

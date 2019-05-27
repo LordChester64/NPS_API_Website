@@ -65,10 +65,10 @@ async function getCampgroundsInfo(code) {
 }
 
 function buildCampgroundList(campgroundInfo){
-    campgroundList = "";
+    campgroundList = "<h4>Campgrounds:</h4><hr/>";
     countOfCampgrounds = campgroundInfo.length;
     for (i = 0; i < countOfCampgrounds; i++){
-        campgroundList += `<li class="campgroundItem"><a href="http://google.com">${campgroundInfo[i].name}</a></li><hr />`;
+        campgroundList += `<li class="campgroundItem"><a href="CampCard.html?parkCode=${campgroundInfo[i].parkCode}&campgroundID=${campgroundInfo[i].id}">${campgroundInfo[i].name}</a></li><hr />`;
     }
     document.getElementById("parkCampgrounds").innerHTML = campgroundList;
 }
@@ -80,10 +80,10 @@ async function getVisitorCenterInfo(code) {
 }
 
 function buildVisitorCenterList(visitorCenterInfo){
-    visitorCenterList = "";
+    visitorCenterList = "<h4>Visitor Centers:</h4><hr/>";
     countOfCenters = visitorCenterInfo.length;
     for (i = 0; i < countOfCenters; i++){
-        visitorCenterList += `<li class="Visitor Center Item"><a href="http://google.com">${visitorCenterInfo[i].name}</a></li><hr />`;
+        visitorCenterList += `<li class="Visitor Center Item"><a href="VCCard.html">${visitorCenterInfo[i].name}</a></li><hr />`;
     }
     document.getElementById("parkCenters").innerHTML = visitorCenterList;
 }
