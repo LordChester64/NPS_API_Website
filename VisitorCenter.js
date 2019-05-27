@@ -1,4 +1,4 @@
-var config = JSON.parse(env);
+//var config = JSON.parse(env);
 
 function getVisitorCenterDescription(){
     var searchParams = new URLSearchParams(window.location.href.split("?")[1]);
@@ -32,4 +32,5 @@ function buildVisitorCenterDetails(visitorCenterInfo, visitorCenterID){
     document.getElementById("visitorCenterName").innerText = `${thisVisitorCenter.name}`;
     document.getElementById("visitorCenterNameHeading").innerText = `About ${thisVisitorCenter.name}:`;
     document.getElementById("visitorCenterDescription").innerText = `${thisVisitorCenter.description}`;
+    document.getElementById("visitorCenterURL").innerHTML = `<a href="${thisVisitorCenter.url}">Learn More Here!</a>`;
 }

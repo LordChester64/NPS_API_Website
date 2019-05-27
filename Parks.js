@@ -1,4 +1,4 @@
-var config = JSON.parse(env);
+//var config = JSON.parse(env);
 function getCode(string) {
     var searchString = string;
     var parkCode = "";

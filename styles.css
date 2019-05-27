@@ -59,7 +59,7 @@
     margin: 10px 0px;
     border: double 3px rgb(21, 56, 30);
     height: 250px;
-    width: 49.125%;
+    width: 49.25%;
     float: left;
 }
 
@@ -75,7 +75,7 @@
     margin: 10px 0px;
     border: double 3px rgb(21, 56, 30);
     height: 250px;
-    width: 49.125%;
+    width: 49.25%;
     float: right;
 }
 
@@ -130,5 +130,48 @@ a:hover {
     cursor: pointer;
 }
 
+#visitorCenterURL {
+    margin: 4px;
+}
 
+#visitorCenterURL a:hover {
+    color: lightgray;
+}
 
+.visitorCenterContainer {
+    background: rgb(236, 193, 137);
+    border: solid 8px rgb(54, 99, 48);
+    height: 600px;
+    width: 800px;
+    margin: 10px auto;
+    position: relative;
+}
+
+.campgroundContainer {
+    background: rgb(236, 193, 137);
+    border: solid 8px rgb(54, 99, 48);
+    height: 650px;
+    width: 800px;
+    margin: 10px auto;
+    position: relative;
+}
+
+#campgroundName {
+    margin: 4px;
+}
+
+#campgroundReservationLink {
+    margin: 4px;
+}
+
+#campgroundReservationLink a:hover {
+    color: lightgray;
+}
+
+#map { 
+    /* position:absolute; 
+    top:0; 
+    bottom:0;  */
+    width:100%; 
+    height: 100%;
+}

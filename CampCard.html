@@ -5,14 +5,14 @@
         <link href="styles.css" rel="stylesheet">
         <script src="./.env"></script>
         <script src="./Campground.js"></script>
-
-
-
+        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css' rel='stylesheet' />
     </head>
 
     <body onload="getCampgroundDescription()">
         
-        <div class="container">
+        <div class="campgroundContainer">
             
             <div class="header">
                 
@@ -27,7 +27,9 @@
             </div><!-- end header -->
 
             <div id="parkPictureDiv" class="parkPictureDiv">
-                <img id="parkPicture">
+                <div id='map'>
+
+                </div>
             </div>
 
             <div class="body">
@@ -39,15 +41,19 @@
                 <p id="campgroundDescription">
 
                 </p>
+
+                <h4 id="campgroundDirectionsHeading">
+
+                </h4>
+
+                <p id="campgroundDirections">
+
+                </p>
             </div><!-- end body -->
 
             <div class="footer">
 
-                <p id="parkCode">
-
-                </p>
-
-                <p id="parkID">
+                <p id="campgroundReservationLink">
 
                 </p>
             </div><!-- end footer -->
