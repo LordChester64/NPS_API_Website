@@ -2,9 +2,58 @@
 <html>
     <head>
         <title>Visitor Center</title>
+        <link href="styles.css" rel="stylesheet">
+        <script src="./.env"></script>
+        <script src="./VisitorCenter.js"></script>
+
+
 
     </head>
 
+    <body onload="getVisitorCenterDescription()">
+        
+        <div class="container">
+            
+            <div class="header">
+                
+                <div class="visitorCenterName">
+                    <h2 id="visitorCenterName"></h2>
+
+                </div>
+
+                <div id="">
+                   
+                </div>
+            </div><!-- end header -->
+
+            <div id="parkPictureDiv" class="parkPictureDiv">
+                <img id="parkPicture">
+            </div>
+
+            <div class="body">
+
+                <h4 id="visitorCenterNameHeading">
+
+                </h4>
+
+                <p id="visitorCenterDescription">
+
+                </p>
+            </div><!-- end body -->
+
+            <div class="footer">
+
+                <p id="parkCode">
+
+                </p>
+
+                <p id="parkID">
+
+                </p>
+            </div><!-- end footer -->
+        </div><!-- end container -->
+
+    </body>
 
 
 </html>

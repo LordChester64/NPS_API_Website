@@ -34,7 +34,7 @@ async function getParkInfo(code) {
 function getParkDescription(code) {
     getParkInfo(code).then(parkInfo => {
         console.log(`${parkInfo}`); 
-        document.getElementById('parkFullName').innerText = parkInfo.fullName;
+        document.getElementById('parkFullName').innerText = decodeURIComponent(escape(parkInfo.fullName));
         document.getElementById('parkStates').innerText = "States: " + parkInfo.states;
         document.getElementById('parkName').innerText = "About the  " + parkInfo.designation;
         document.getElementById('parkDescription').innerText = parkInfo.description;
@@ -83,7 +83,7 @@ function buildVisitorCenterList(visitorCenterInfo){
     visitorCenterList = "<h4>Visitor Centers:</h4><hr/>";
     countOfCenters = visitorCenterInfo.length;
     for (i = 0; i < countOfCenters; i++){
-        visitorCenterList += `<li class="Visitor Center Item"><a href="VCCard.html">${visitorCenterInfo[i].name}</a></li><hr />`;
+        visitorCenterList += `<li class="Visitor Center Item"><a href="VCCard.html?parkCode=${visitorCenterInfo[i].parkCode}&visitorCenterID=${visitorCenterInfo[i].id}"">${visitorCenterInfo[i].name}</a></li><hr />`;
     }
     document.getElementById("parkCenters").innerHTML = visitorCenterList;
 }
