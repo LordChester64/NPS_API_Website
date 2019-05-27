@@ -45,6 +45,9 @@ function getParkDescription(code) {
     getCampgroundsInfo(code).then(campgroundsInfo => {
         buildCampgroundList(campgroundsInfo);
     });
+    getVisitorCenterInfo(code).then(visitorCenterInfo => {
+        buildVisitorCenterList(visitorCenterInfo);
+    });
 }
 
 function image(imgURL) {
@@ -65,11 +68,25 @@ function buildCampgroundList(campgroundInfo){
     campgroundList = "";
     countOfCampgrounds = campgroundInfo.length;
     for (i = 0; i < countOfCampgrounds; i++){
-        campgroundList += `<li class="campgroundItem"><a href="http://google.com">${campgroundInfo[i].name}</a></li>`;
+        campgroundList += `<li class="campgroundItem"><a href="http://google.com">${campgroundInfo[i].name}</a></li><hr />`;
     }
     document.getElementById("parkCampgrounds").innerHTML = campgroundList;
 }
 
+async function getVisitorCenterInfo(code) {
+    const response = await fetch(`https://developer.nps.gov/api/v1/visitorcenters?parkCode=${code}&api_key=${config.API_Key}`);
+    const responseData = await response.json();
+    return await responseData.data;
+}
+
+function buildVisitorCenterList(visitorCenterInfo){
+    visitorCenterList = "";
+    countOfCenters = visitorCenterInfo.length;
+    for (i = 0; i < countOfCenters; i++){
+        visitorCenterList += `<li class="Visitor Center Item"><a href="http://google.com">${visitorCenterInfo[i].name}</a></li><hr />`;
+    }
+    document.getElementById("parkCenters").innerHTML = visitorCenterList;
+}
 
 
 
