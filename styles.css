@@ -94,7 +94,7 @@
     margin: 2px;
 }
 
-.alertBox {
+#alertBox {
     overflow-y: scroll;
     border: solid 1px black;
     margin: 2px 0px 0px 2px;
@@ -103,7 +103,7 @@
     width: 49.5%;
 }
 
-.articleBox {
+#articleBox {
     overflow-y: scroll;
     border: solid 1px black;
     margin: 2px 2px 0px 0px;
@@ -112,7 +112,7 @@
     width: 49.5%;
 }
 
-.eventBox {
+#eventBox {
     overflow-y: scroll;
     border: solid 1px black;
     margin: 0px 0px 2px 2px;
@@ -121,7 +121,7 @@
     width: 49.5%;
 }
 
-.newsBox {
+#newsBox {
     overflow-y: scroll;
     border: solid 1px black;
     margin: 0px 2px 2px 0px;

@@ -48,6 +48,9 @@ function getParkDescription(code) {
     getVisitorCenterInfo(code).then(visitorCenterInfo => {
         buildVisitorCenterList(visitorCenterInfo);
     });
+    getAlertInfo(code).then(alertInfo => {
+        buildAlertList(alertInfo);
+    });
 }
 
 function image(imgURL) {
@@ -57,6 +60,9 @@ function image(imgURL) {
     // img.style.width = "100%";
     document.getElementById("parkPicture").src = imgURL;
 }
+
+
+//Campgrounds call
 
 async function getCampgroundsInfo(code) {
     const response = await fetch(`https://developer.nps.gov/api/v1/campgrounds?parkCode=${code}&api_key=${config.API_Key}`);
@@ -73,6 +79,9 @@ function buildCampgroundList(campgroundInfo){
     document.getElementById("parkCampgrounds").innerHTML = campgroundList;
 }
 
+
+//Visitor Center call
+
 async function getVisitorCenterInfo(code) {
     const response = await fetch(`https://developer.nps.gov/api/v1/visitorcenters?parkCode=${code}&api_key=${config.API_Key}`);
     const responseData = await response.json();
@@ -87,6 +96,25 @@ function buildVisitorCenterList(visitorCenterInfo){
     }
     document.getElementById("parkCenters").innerHTML = visitorCenterList;
 }
+
+
+//Alert call
+
+async function getAlertInfo(code) {
+    const response = await fetch(`https://developer.nps.gov/api/v1/alerts?parkCode=${code}&api_key=${config.API_Key}`);
+    const responseData = await response.json();
+    return await responseData.data;
+}
+
+function buildAlertList(alertInfo){
+    alertList = ``;
+    countOfAlerts = alertInfo.length;
+    for (i = 0; i < countOfAlerts; i++){
+        alertList += `<li class="alertItem"><h4>${alertInfo[i].title}</h4><p>${alertInfo[i].category}</p><p>${alertInfo[i].description}</p></li><hr />`;
+    }
+    document.getElementById("alertBox").innerHTML = alertList;
+}
+
 
 
 
