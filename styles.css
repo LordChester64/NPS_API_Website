@@ -16,7 +16,7 @@
 .container {
     background: rgb(236, 193, 137);
     border: solid 8px rgb(54, 99, 48);
-    height: 800px;
+    height: 1350px;
     width: 800px;
     margin: 10px auto;
     position: relative;
@@ -92,6 +92,42 @@
     height: 100%;
     width: 100%;
     margin: 2px;
+}
+
+.alertBox {
+    overflow-y: scroll;
+    border: solid 1px black;
+    margin: 2px 0px 0px 2px;
+    float: left;
+    height: 250px;
+    width: 49.5%;
+}
+
+.articleBox {
+    overflow-y: scroll;
+    border: solid 1px black;
+    margin: 2px 2px 0px 0px;
+    float: right;
+    height: 250px;
+    width: 49.5%;
+}
+
+.eventBox {
+    overflow-y: scroll;
+    border: solid 1px black;
+    margin: 0px 0px 2px 2px;
+    float: left;
+    height: 250px;
+    width: 49.5%;
+}
+
+.newsBox {
+    overflow-y: scroll;
+    border: solid 1px black;
+    margin: 0px 2px 2px 0px;
+    float: right;
+    height: 250px;
+    width: 49.5%;
 }
 
 .footer {
