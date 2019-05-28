@@ -112,6 +112,12 @@
     width: 49.5%;
 }
 
+/* .articleImage {
+    width: 100px;
+    height: 100px;
+    margin: 2px auto;
+} */
+
 #eventBox {
     overflow-y: scroll;
     border: solid 1px black;

@@ -54,6 +54,12 @@ function getParkDescription(code) {
     getArticleInfo(code).then(articleInfo => {
         buildArticleList(articleInfo);
     });
+    getEventInfo(code).then(eventsInfo => {
+        buildEventList(eventsInfo);
+    });
+    getNewsInfo(code).then(newsInfo => {
+        buildNewsList(newsInfo);
+    });
 }
 
 function image(imgURL) {
@@ -131,9 +137,71 @@ function buildArticleList(articlesInfo){
     articlesList = `<h3>Articles:</h3><hr/>`;
     countOfArticles = articlesInfo.length;
     for (i = 0; i < countOfArticles; i++){
-        articlesList += `<li class="articleItem"><h4>${articlesInfo[i].title}</h4><p>${articlesInfo[i].listingdescription}</p><p><a href="${articlesInfo[i].url}">Read more --></a></p></li><hr />`;
+        articlesList += `<li class="articleItem"><h4>${articlesInfo[i].title}</h4><p>${articlesInfo[i].listingdescription}</p></li>`;
+        if (articlesInfo[i].listingimage.url){    
+            articlesList += `<img src="${articlesInfo[i].listingimage.url}" class"articleImage" width="100" height="100">`;
+        }
+        if (articlesInfo[i].url) {
+            articlesList += `<p><a href="${articlesInfo[i].url}">Read more --></a></p><hr />`;
+        }
+        else{
+            articlesList += `<hr />`;
+        }
     }
     document.getElementById("articleBox").innerHTML = articlesList;
+}
+
+
+//Events call
+
+async function getEventInfo(code) {
+    const response = await fetch(`https://developer.nps.gov/api/v1/events?parkCode=${code}&api_key=${config.API_Key}`);
+    const responseData = await response.json();
+    return await responseData.data;
+}
+
+function buildEventList(eventsInfo){
+    eventsList = `<h3>Events:</h3><hr/>`;
+    countOfEvents = eventsInfo.length;
+    for (i = 0; i < countOfEvents; i++){
+        eventsList += `<li class="eventItem"><h4>${eventsInfo[i].title}</h4><p>${eventsInfo[i].category}</p><p>${eventsInfo[i].description}</p><p>${eventsInfo[i].times[0].timestart} - ${eventsInfo[i].times[0].timeend}</p></li>`;
+        if (eventsInfo[i].infourl){    
+            eventsList += `<p><a href="${eventsInfo[i].infourl}">Read more --></a></p><hr />`;
+        }
+        else{
+            eventsList += `<hr />`
+        }
+    }
+    document.getElementById("eventBox").innerHTML = eventsList;
+}
+
+
+//News Releases call
+
+async function getNewsInfo(code) {
+    const response = await fetch(`https://developer.nps.gov/api/v1/newsreleases?parkCode=${code}&api_key=${config.API_Key}`);
+    const responseData = await response.json();
+    return await responseData.data;
+}
+
+function buildNewsList(newsInfo){
+    newsList = `<h3>News Releases:</h3><hr/>`;
+    countOfNewsReleases = newsInfo.length;
+    for (i = 0; i < countOfNewsReleases; i++){
+        newsList += `<li class="newsItem"><h4>${newsInfo[i].title}</h4><p>${newsInfo[i].abstract}</p></li>`;
+        if (newsInfo[i].image){   
+            if (newsInfo[i].image.url){ 
+                newsList += `<img src="${newsInfo[i].image.url}" class"newsImage" width="100" height="100">`;
+            }
+        }
+        if (newsInfo[i].url){
+            newsList += `<p><a href="${newsInfo[i].url}">Read more --></a></p><hr />`
+        }
+        else{
+            newsList += `<hr />`
+        }
+    }
+    document.getElementById("newsBox").innerHTML = newsList;
 }
 
 
