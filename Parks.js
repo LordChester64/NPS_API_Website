@@ -51,6 +51,9 @@ function getParkDescription(code) {
     getAlertInfo(code).then(alertInfo => {
         buildAlertList(alertInfo);
     });
+    getArticleInfo(code).then(articleInfo => {
+        buildArticleList(articleInfo);
+    });
 }
 
 function image(imgURL) {
@@ -71,7 +74,7 @@ async function getCampgroundsInfo(code) {
 }
 
 function buildCampgroundList(campgroundInfo){
-    campgroundList = "<h4>Campgrounds:</h4><hr/>";
+    campgroundList = "<h3>Campgrounds:</h3><hr/>";
     countOfCampgrounds = campgroundInfo.length;
     for (i = 0; i < countOfCampgrounds; i++){
         campgroundList += `<li class="campgroundItem"><a href="CampCard.html?parkCode=${campgroundInfo[i].parkCode}&campgroundID=${campgroundInfo[i].id}">${campgroundInfo[i].name}</a></li><hr />`;
@@ -89,7 +92,7 @@ async function getVisitorCenterInfo(code) {
 }
 
 function buildVisitorCenterList(visitorCenterInfo){
-    visitorCenterList = "<h4>Visitor Centers:</h4><hr/>";
+    visitorCenterList = "<h3>Visitor Centers:</h3><hr/>";
     countOfCenters = visitorCenterInfo.length;
     for (i = 0; i < countOfCenters; i++){
         visitorCenterList += `<li class="Visitor Center Item"><a href="VCCard.html?parkCode=${visitorCenterInfo[i].parkCode}&visitorCenterID=${visitorCenterInfo[i].id}"">${visitorCenterInfo[i].name}</a></li><hr />`;
@@ -107,7 +110,7 @@ async function getAlertInfo(code) {
 }
 
 function buildAlertList(alertInfo){
-    alertList = ``;
+    alertList = `<h3>Alerts:</h3><hr/>`;
     countOfAlerts = alertInfo.length;
     for (i = 0; i < countOfAlerts; i++){
         alertList += `<li class="alertItem"><h4>${alertInfo[i].title}</h4><p>${alertInfo[i].category}</p><p>${alertInfo[i].description}</p></li><hr />`;
@@ -116,5 +119,21 @@ function buildAlertList(alertInfo){
 }
 
 
+//Articles call
+
+async function getArticleInfo(code) {
+    const response = await fetch(`https://developer.nps.gov/api/v1/articles?parkCode=${code}&api_key=${config.API_Key}`);
+    const responseData = await response.json();
+    return await responseData.data;
+}
+
+function buildArticleList(articlesInfo){
+    articlesList = `<h3>Articles:</h3><hr/>`;
+    countOfArticles = articlesInfo.length;
+    for (i = 0; i < countOfArticles; i++){
+        articlesList += `<li class="articleItem"><h4>${articlesInfo[i].title}</h4><p>${articlesInfo[i].listingdescription}</p><p><a href="${articlesInfo[i].url}">Read more --></a></p></li><hr />`;
+    }
+    document.getElementById("articleBox").innerHTML = articlesList;
+}
 
 
