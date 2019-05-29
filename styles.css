@@ -124,12 +124,6 @@
     width: 49.5%;
 }
 
-/* .articleImage {
-    width: 100px;
-    height: 100px;
-    margin: 2px auto;
-} */
-
 #eventBox {
     overflow-y: scroll;
     border: solid 1px black;
@@ -184,6 +178,9 @@ a:hover {
     cursor: pointer;
 }
 
+
+/* VCCard formatting */
+
 #visitorCenterURL {
     margin: 4px;
 }
@@ -200,6 +197,8 @@ a:hover {
     margin: 10px auto;
     position: relative;
 }
+
+/* CampCard formatting */
 
 .campgroundContainer {
     background: rgb(236, 193, 137);
@@ -223,9 +222,28 @@ a:hover {
 }
 
 #map { 
-    /* position:absolute; 
-    top:0; 
-    bottom:0;  */
     width:100%; 
     height: 100%;
 }
+
+/* learningMaterials formatting */
+
+.learningContainer {
+    background: rgb(236, 193, 137);
+    border: solid 8px rgb(54, 99, 48);
+    height: 650px;
+    width: 800px;
+    margin: 10px auto;
+    position: relative;
+}
+
+#lessonList {
+    height: 300px;
+    width: 700px;
+    margin: 10px auto;
+    overflow-y: scroll;
+}
+
+
+
+

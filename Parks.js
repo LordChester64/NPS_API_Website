@@ -40,7 +40,8 @@ function getParkDescription(code) {
         document.getElementById('parkDescription').innerText = parkInfo.description;
         document.getElementById("parkCode").innerText = "Park Code: " + parkInfo.parkCode;
         document.getElementById("parkID").innerText = "Park ID: " + parkInfo.id;
-        image(parkInfo.images[0].url)
+        document.getElementById('learningLink').innerHTML = `<h5><a href="learningMaterials.html?parkCode=${parkInfo[i].parkCode}">Learn more here!</a></h5>`;
+        image(parkInfo.images[0].url);
         });
     getCampgroundsInfo(code).then(campgroundsInfo => {
         buildCampgroundList(campgroundsInfo);
@@ -285,7 +286,7 @@ function filterByState() {
         console.log(`${parkInfo}`); 
         for (var park in parkInfo){
             console.log(park);
-            document.getElementById("resultList").innerHTML += `<li><a href="">${parkInfo[park].name}</a></li>`
+            document.getElementById("resultList").innerHTML += `<li><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`
         }
         });
 }
