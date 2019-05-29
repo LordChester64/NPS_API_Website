@@ -237,13 +237,27 @@ a:hover {
     position: relative;
 }
 
-#lessonList {
-    height: 300px;
-    width: 700px;
-    margin: 10px auto;
+#lessonScroll {
     overflow-y: scroll;
+    height: 300px;
 }
 
+.lessonHeader {
+    width: 98%;
+    margin: 10px auto 0px;
+    padding: 4px;
+    border: solid 1px black;
+}
 
+h5 {
+    margin: 2px 2px 0px;
+}
 
+h6 {
+    margin: 2px 2px 0px;
+}
 
+#lessonHeaderTitle {
+    font-size: 20px;
+    font-weight: bold;
+}

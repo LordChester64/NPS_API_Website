@@ -40,8 +40,8 @@ function getParkDescription(code) {
         document.getElementById('parkDescription').innerText = parkInfo.description;
         document.getElementById("parkCode").innerText = "Park Code: " + parkInfo.parkCode;
         document.getElementById("parkID").innerText = "Park ID: " + parkInfo.id;
-        document.getElementById('learningLink').innerHTML = `<h5><a href="learningMaterials.html?parkCode=${parkInfo[i].parkCode}">Learn more here!</a></h5>`;
         image(parkInfo.images[0].url);
+        document.getElementById('learningLink').innerHTML = `<h3><a href="learningMaterials.html?parkCode=${parkInfo.parkCode}">Learn more here!</a></h3>`;
         });
     getCampgroundsInfo(code).then(campgroundsInfo => {
         buildCampgroundList(campgroundsInfo);

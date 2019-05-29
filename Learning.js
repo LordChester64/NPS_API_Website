@@ -16,12 +16,13 @@ async function getLessonInfo(code) {
     return await responseData.data;
 }
 
-function buildCampgroundDetails(lessonInfo){
+function buildLessonDetails(lessonInfo){
     console.log(lessonInfo);
     lessonList = "";
     countOfLessons = lessonInfo.length;
     for (i = 0; i < countOfLessons; i++){
-        lessonList += `<h3>${lessonInfo[i].title}</h3>`;
+        lessonList += `<h3 id="lessonTitle">${lessonInfo[i].title}</h3><h5 id="lessonSubject">${lessonInfo[i].subject}</h5><h6 id="lessonGradeLevel">Grade level: ${lessonInfo[i].gradelevel}</h6>`;
+        lessonList += `<p>${lessonInfo[i].questionobjective}</p><hr />`;
     }
     document.getElementById("lessonScroll").innerHTML = lessonList;
     // document.getElementById("campgroundNameHeading").innerText = `About ${thisCampground.name}:`;
