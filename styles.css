@@ -9,8 +9,12 @@
 
 /* Simple CSS Reset */
 
-.searchButton {
-    margin: 2px auto; 
+.searchHeader {
+    margin: 2px 20px 2px 2px; 
+}
+
+#nameButton {
+    margin: 2px 20px 2px 2px; 
 }
 
 .container {

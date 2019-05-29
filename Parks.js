@@ -204,4 +204,106 @@ function buildNewsList(newsInfo){
     document.getElementById("newsBox").innerHTML = newsList;
 }
 
+function initDropdowns() {
+    var stateList = {
+        "":"",
+        "AL": "Alabama",
+        "AK": "Alaska",
+        "AS": "American Samoa",
+        "AZ": "Arizona",
+        "AR": "Arkansas",
+        "CA": "California",
+        "CO": "Colorado",
+        "CT": "Connecticut",
+        "DE": "Delaware",
+        "DC": "District Of Columbia",
+        "FM": "Federated States Of Micronesia",
+        "FL": "Florida",
+        "GA": "Georgia",
+        "GU": "Guam",
+        "HI": "Hawaii",
+        "ID": "Idaho",
+        "IL": "Illinois",
+        "IN": "Indiana",
+        "IA": "Iowa",
+        "KS": "Kansas",
+        "KY": "Kentucky",
+        "LA": "Louisiana",
+        "ME": "Maine",
+        "MH": "Marshall Islands",
+        "MD": "Maryland",
+        "MA": "Massachusetts",
+        "MI": "Michigan",
+        "MN": "Minnesota",
+        "MS": "Mississippi",
+        "MO": "Missouri",
+        "MT": "Montana",
+        "NE": "Nebraska",
+        "NV": "Nevada",
+        "NH": "New Hampshire",
+        "NJ": "New Jersey",
+        "NM": "New Mexico",
+        "NY": "New York",
+        "NC": "North Carolina",
+        "ND": "North Dakota",
+        "MP": "Northern Mariana Islands",
+        "OH": "Ohio",
+        "OK": "Oklahoma",
+        "OR": "Oregon",
+        "PW": "Palau",
+        "PA": "Pennsylvania",
+        "PR": "Puerto Rico",
+        "RI": "Rhode Island",
+        "SC": "South Carolina",
+        "SD": "South Dakota",
+        "TN": "Tennessee",
+        "TX": "Texas",
+        "UT": "Utah",
+        "VT": "Vermont",
+        "VI": "Virgin Islands",
+        "VA": "Virginia",
+        "WA": "Washington",
+        "WV": "West Virginia",
+        "WI": "Wisconsin",
+        "WY": "Wyoming"
+    };
+    var stateDropDown = document.getElementById("states");
+    for (var state in stateList){
+        var option = document.createElement("option");
+        option.value = state;
+        option.innerText = stateList[state];
+        stateDropDown.appendChild(option);
+    }
+}
+
+function filterByState() {
+    document.getElementById("resultList").innerHTML = "";
+    var stateDropDown = document.getElementById("states");
+    var stateCode = stateDropDown.options[stateDropDown.selectedIndex].value;
+    console.log(stateCode);
+    getParkList(stateCode, "stateCode=").then(parkInfo => {
+        console.log(`${parkInfo}`); 
+        for (var park in parkInfo){
+            console.log(park);
+            document.getElementById("resultList").innerHTML += `<li><a href="">${parkInfo[park].name}</a></li>`
+        }
+        // document.getElementById('parkFullName').innerText = decodeURIComponent(escape(parkInfo.fullName));
+        // document.getElementById('parkStates').innerText = "States: " + parkInfo.states;
+        // document.getElementById('parkName').innerText = "About the  " + parkInfo.designation;
+        // document.getElementById('parkDescription').innerText = parkInfo.description;
+        // document.getElementById("parkCode").innerText = "Park Code: " + parkInfo.parkCode;
+        // document.getElementById("parkID").innerText = "Park ID: " + parkInfo.id;
+        //image(parkInfo.images[0].url)
+        });
+}
+
+async function getParkList(code, searchLine) {
+    console.log(config.API_Key);
+    const response = await fetch(`https://developer.nps.gov/api/v1/parks?${searchLine}${code}&fields=images&api_key=${config.API_Key}`);
+
+    const responseData = await response.json();
+
+    return await responseData.data;
+}
+
 

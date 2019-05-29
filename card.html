@@ -1,104 +1,121 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>National Park Cards</title>
-        <link href="styles.css" rel="stylesheet">
-        <script src="./.env"></script> 
-        <script src="./Parks.js"></script> 
-        <script>
-            function testFunction(param1){
-                var result = getParkDescription(getCode(param1));
-            }
-        </script>
-        <meta charset="UTF-8">
-    </head>    
-    <body>
 
-        <div class="searchButton">
-            <input type="text" id="searchedName">
-            <button onclick="testFunction(document.getElementById('searchedName').value)">Get Park Info</button>
-            <hr />
-        </div><!-- end searchButton -->
+<head>
+    <title>National Park Cards</title>
+    <link href="styles.css" rel="stylesheet">
+    <script src="./.env"></script>
+    <script src="./Parks.js"></script>
+    <script>
+        function testFunction(param1) {
+            var result = getParkDescription(getCode(param1));
+        }
+    </script>
+    <meta charset="UTF-8">
+</head>
 
-        <div class="container">
-            
-            
-            <div class="header">
-                
-                <div id="parkFullName">
+<body onload="initDropdowns()">
 
-                </div>
+    <div class="searchHeader">
+        <input type="text" id="searchedName">
+        <button onclick="testFunction(document.getElementById('searchedName').value)" id="nameButton">Get Park
+            Info</button>
+        <input type="text" id="searchedKeyword">
+        <button onclick="testFunction(document.getElementById('searchedName').value)">Keyword Search</button>
 
-                <div id="parkStates">
-                   
-                </div>
-            </div><!-- end header -->
+        <div id="stateFilter">
+            <label for="states">State:</label>
+            <select name="states" id="states" onchange="filterByState()"></select>
+        </div>
 
-            <div id="parkPictureDiv" class="parkPictureDiv">
-                <img id="parkPicture">
+        <hr />
+    </div><!-- end searchButton -->
+
+    <div class="leftContainer">
+
+        <div id="resultList">
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="container">
+
+
+        <div class="header">
+
+            <div id="parkFullName">
+
             </div>
 
-            <div class="body">
+            <div id="parkStates">
 
-                <h4 id="parkName">
+            </div>
+        </div><!-- end header -->
 
-                </h4>
+        <div id="parkPictureDiv" class="parkPictureDiv">
+            <img id="parkPicture">
+        </div>
 
-                <p id="parkDescription">
+        <div class="body">
 
-                </p>
-            </div><!-- end body -->
+            <h4 id="parkName">
 
-            <div class="leftBox">
-                    
-                <div id="parkCenters">
+            </h4>
 
-                </div>
+            <p id="parkDescription">
 
-            </div><!-- end leftBox -->
+            </p>
+        </div><!-- end body -->
 
-            <div class="rightBox">
+        <div class="leftBox">
 
-                <div id="parkCampgrounds">
-                    
-                </div>
+            <div id="parkCenters">
 
-            </div><!-- end rightBox -->
-
-            <div class="extraInfo">
-                <div id="alertBox">
-
-                </div>
-
-                <div id="articleBox">
-
-                </div>
-
-                <div id="eventBox">
-
-                </div>
-
-                <div id="newsBox">
-
-                </div>
             </div>
 
-            <div class="footer">
+        </div><!-- end leftBox -->
 
-                <p id="parkCode">
+        <div class="rightBox">
 
-                </p>
+            <div id="parkCampgrounds">
 
-                <p id="parkID">
+            </div>
 
-                </p>
-            </div><!-- end footer -->
-        </div><!-- end container -->
-    </body>
+        </div><!-- end rightBox -->
+
+        <div class="extraInfo">
+            <div id="alertBox">
+
+            </div>
+
+            <div id="articleBox">
+
+            </div>
+
+            <div id="eventBox">
+
+            </div>
+
+            <div id="newsBox">
+
+            </div>
+        </div>
+
+        <div class="footer">
+
+            <p id="parkCode">
+
+            </p>
+
+            <p id="parkID">
+
+            </p>
+        </div><!-- end footer -->
+    </div><!-- end container -->
+</body>
+
 </html>
-
-
-
-
-
-
