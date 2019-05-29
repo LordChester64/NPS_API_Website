@@ -17,6 +17,13 @@
     margin: 2px 20px 2px 2px; 
 }
 
+.leftContainer {
+    height: 1350px;
+    width: 330px;
+    float: left;
+    margin: 10px;
+}
+
 .container {
     background: rgb(236, 193, 137);
     border: solid 8px rgb(54, 99, 48);
@@ -24,6 +31,7 @@
     width: 800px;
     margin: 10px auto;
     position: relative;
+    float: left;
 }
 
 #parkFullName {

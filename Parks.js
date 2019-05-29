@@ -206,7 +206,7 @@ function buildNewsList(newsInfo){
 
 function initDropdowns() {
     var stateList = {
-        "":"",
+        null:"",
         "AL": "Alabama",
         "AK": "Alaska",
         "AS": "American Samoa",
@@ -287,20 +287,13 @@ function filterByState() {
             console.log(park);
             document.getElementById("resultList").innerHTML += `<li><a href="">${parkInfo[park].name}</a></li>`
         }
-        // document.getElementById('parkFullName').innerText = decodeURIComponent(escape(parkInfo.fullName));
-        // document.getElementById('parkStates').innerText = "States: " + parkInfo.states;
-        // document.getElementById('parkName').innerText = "About the  " + parkInfo.designation;
-        // document.getElementById('parkDescription').innerText = parkInfo.description;
-        // document.getElementById("parkCode").innerText = "Park Code: " + parkInfo.parkCode;
-        // document.getElementById("parkID").innerText = "Park ID: " + parkInfo.id;
-        //image(parkInfo.images[0].url)
         });
 }
 
 async function getParkList(code, searchLine) {
     console.log(config.API_Key);
     const response = await fetch(`https://developer.nps.gov/api/v1/parks?${searchLine}${code}&fields=images&api_key=${config.API_Key}`);
-
+    console.log(`${searchLine}${code}`);
     const responseData = await response.json();
 
     return await responseData.data;
