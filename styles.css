@@ -7,7 +7,18 @@
 
 */
 
-/* Simple CSS Reset */
+/* Simple CSS */
+
+h5 {
+    margin: 2px 2px 0px;
+}
+
+h6 {
+    margin: 2px 2px 0px;
+}
+
+
+/* Main page formatting */
 
 .searchHeader {
     margin: 2px 20px 2px 2px; 
@@ -27,7 +38,7 @@
 .container {
     background: rgb(236, 193, 137);
     border: solid 8px rgb(54, 99, 48);
-    height: 1350px;
+    height: 1375px;
     width: 800px;
     margin: 10px auto;
     position: relative;
@@ -243,21 +254,49 @@ a:hover {
 }
 
 .lessonHeader {
-    width: 98%;
+    width: 97%;
     margin: 10px auto 0px;
     padding: 4px;
     border: solid 1px black;
 }
 
-h5 {
-    margin: 2px 2px 0px;
-}
-
-h6 {
-    margin: 2px 2px 0px;
-}
-
 #lessonHeaderTitle {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#peopleScroll {
+    overflow-y: scroll;
+    height: 150px;
+}
+
+.peopleHeader {
+    width: 45%;
+    margin: 10px 6px 0px;
+    padding: 4px;
+    border: solid 1px black;
+    float: left;
+}
+
+#peopleHeaderTitle {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#placesScroll {
+    overflow-y: scroll;
+    height: 150px;
+}
+
+.placesHeader {
+    width: 45%;
+    margin: 10px 6px 0px;
+    padding: 4px;
+    border: solid 1px black;
+    float: right;
+}
+
+#placesHeaderTitle {
     font-size: 20px;
     font-weight: bold;
 }
