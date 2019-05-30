@@ -351,25 +351,30 @@ function initDropdowns() {
 function filterByState() {
     document.getElementById("resultList").innerHTML = "";
     document.getElementById("resultList").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
+    document.getElementById("numResults").innerHTML = "";
     var stateDropDown = document.getElementById("states");
     var stateCode = stateDropDown.options[stateDropDown.selectedIndex].value;
+    var numResults = 0;
     console.log(stateCode);
     getParkList(stateCode, "stateCode=").then(parkInfo => {
         console.log(`${parkInfo}`); 
         var designationFilter = document.getElementById("designation");
         var designation = designationFilter.options[designationFilter.selectedIndex].value;
-        document.getElementById('resultList').innerHTML = "";
+        document.getElementById("resultList").innerHTML = "";
         for (var park in parkInfo){
             console.log(park);
             if (designation){
                 if(parkInfo[park].designation === designation){
+                    numResults += 1;
                     document.getElementById("resultList").innerHTML += `<li class="${parkInfo[park].designation.toLowerCase()}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
                 }
             }
             else{
+                numResults += 1;
                 document.getElementById("resultList").innerHTML += `<li class="${parkInfo[park].designation.toLowerCase()}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
             }
         }
+        document.getElementById("numResults").innerHTML = `Retrieved ${numResults} results`;
         });
 }
 

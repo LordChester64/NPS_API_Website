@@ -32,13 +32,18 @@
 
         <div id="designationFilter">
             <label for="designation">Designation:</label>
-            <select name="designation" id="designation"></select>
+            <select name="designation" id="designation" onchange="filterByState()"></select>
         </div>
 
         <hr />
     </div><!-- end searchButton -->
 
     <div class="leftContainer">
+
+        <div id="numResults">
+
+        </div>
+
 
         <div id="resultList">
 
