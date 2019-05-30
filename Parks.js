@@ -205,6 +205,19 @@ function buildNewsList(newsInfo){
     document.getElementById("newsBox").innerHTML = newsList;
 }
 
+function init() {
+    initDropdowns();
+    var searchParams = new URLSearchParams(window.location.href.split("?")[1]);
+    var parkCode = searchParams.get("parkCode");
+    if (parkCode){
+        getParkDescription(parkCode);
+    }
+}
+
+
+
+
+
 function initDropdowns() {
     var stateList = {
         null:"",

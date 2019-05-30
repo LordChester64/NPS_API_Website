@@ -7,21 +7,23 @@
     <script src="./.env"></script>
     <script src="./Parks.js"></script>
     <script>
-        function testFunction(param1) {
+        function parkSearch(param1) {
             var result = getParkDescription(getCode(param1));
+            var currentURL = window.location.toString().split("?");
+            window.location = currentURL[0] + "?parkCode=" + getCode(param1);
         }
     </script>
     <meta charset="UTF-8">
 </head>
 
-<body onload="initDropdowns()">
+<body onload="init()">
 
     <div class="searchHeader">
         <input type="text" id="searchedName">
-        <button onclick="testFunction(document.getElementById('searchedName').value)" id="nameButton">Get Park
+        <button onclick="parkSearch(document.getElementById('searchedName').value)" id="nameButton">Get Park
             Info</button>
         <input type="text" id="searchedKeyword">
-        <button onclick="testFunction(document.getElementById('searchedName').value)">Keyword Search</button>
+        <button onclick="parkSearch(document.getElementById('searchedName').value)">Keyword Search</button>
 
         <div id="stateFilter">
             <label for="states">State:</label>
