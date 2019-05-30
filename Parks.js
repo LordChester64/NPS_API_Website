@@ -84,6 +84,9 @@ async function getCampgroundsInfo(code) {
 function buildCampgroundList(campgroundInfo){
     campgroundList = "<h3>Campgrounds:</h3><hr/>";
     countOfCampgrounds = campgroundInfo.length;
+    if (countOfCampgrounds === 0){
+        campgroundList += `<p>No results found</p>`;
+    }
     for (i = 0; i < countOfCampgrounds; i++){
         campgroundList += `<li class="campgroundItem"><a href="CampCard.html?parkCode=${campgroundInfo[i].parkCode}&campgroundID=${campgroundInfo[i].id}">${campgroundInfo[i].name}</a></li><hr />`;
     }
@@ -103,6 +106,9 @@ async function getVisitorCenterInfo(code) {
 function buildVisitorCenterList(visitorCenterInfo){
     visitorCenterList = "<h3>Visitor Centers:</h3><hr/>";
     countOfCenters = visitorCenterInfo.length;
+    if (countOfCenters === 0){
+        visitorCenterList += `<p>No results found</p>`;
+    }
     for (i = 0; i < countOfCenters; i++){
         visitorCenterList += `<li class="Visitor Center Item"><a href="VCCard.html?parkCode=${visitorCenterInfo[i].parkCode}&visitorCenterID=${visitorCenterInfo[i].id}"">${visitorCenterInfo[i].name}</a></li><hr />`;
     }
@@ -122,6 +128,9 @@ async function getAlertInfo(code) {
 function buildAlertList(alertInfo){
     alertList = `<h3>Alerts:</h3><hr/>`;
     countOfAlerts = alertInfo.length;
+    if (countOfAlerts === 0){
+        alertList += `<p>No results found</p>`;
+    }
     for (i = 0; i < countOfAlerts; i++){
         alertList += `<li class="alertItem"><h4>${alertInfo[i].title}</h4><p>${alertInfo[i].category}</p><p>${alertInfo[i].description}</p></li><hr />`;
     }
@@ -141,6 +150,9 @@ async function getArticleInfo(code) {
 function buildArticleList(articlesInfo){
     articlesList = `<h3>Articles:</h3><hr/>`;
     countOfArticles = articlesInfo.length;
+    if (countOfArticles === 0){
+        articlesList += `<p>No results found</p>`;
+    }
     for (i = 0; i < countOfArticles; i++){
         articlesList += `<li class="articleItem"><h4>${articlesInfo[i].title}</h4><p>${articlesInfo[i].listingdescription}</p></li>`;
         if (articlesInfo[i].listingimage.url){    
@@ -169,6 +181,9 @@ async function getEventInfo(code) {
 function buildEventList(eventsInfo){
     eventsList = `<h3>Events:</h3><hr/>`;
     countOfEvents = eventsInfo.length;
+    if (countOfEvents === 0){
+        eventsList += `<p>No results found</p>`;
+    }
     for (i = 0; i < countOfEvents; i++){
         eventsList += `<li class="eventItem"><h4>${eventsInfo[i].title}</h4><p>${eventsInfo[i].category}</p><p>${eventsInfo[i].description}</p><p>${eventsInfo[i].times[0].timestart} - ${eventsInfo[i].times[0].timeend}</p></li>`;
         if (eventsInfo[i].infourl){    
@@ -194,6 +209,9 @@ async function getNewsInfo(code) {
 function buildNewsList(newsInfo){
     newsList = `<h3>News Releases:</h3><hr/>`;
     countOfNewsReleases = newsInfo.length;
+    if (countOfNewsReleases === 0){
+        newsList += `<p>No results found</p>`;
+    }
     for (i = 0; i < countOfNewsReleases; i++){
         newsList += `<li class="newsItem"><h4>${newsInfo[i].title}</h4><p>${newsInfo[i].abstract}</p></li>`;
         if (newsInfo[i].image){   

@@ -28,6 +28,9 @@ function buildLessonDetails(lessonInfo){
     console.log(lessonInfo);
     lessonList = "";
     countOfLessons = lessonInfo.length;
+    if (countOfLessons === 0){
+        lessonList += `<p>No results found</p>`;
+    }
     for (i = 0; i < countOfLessons; i++){
         lessonList += `<h3 id="lessonTitle">${lessonInfo[i].title}</h3><h5 id="lessonSubject">${lessonInfo[i].subject}</h5><h6 id="lessonGradeLevel">Grade level: ${lessonInfo[i].gradelevel}</h6>`;
         lessonList += `<p>${lessonInfo[i].questionobjective}</p><hr />`;
@@ -48,6 +51,9 @@ function buildPeopleDetails(peopleInfo){
     console.log(peopleInfo);
     peopleList = "";
     countOfPeople = peopleInfo.length;
+    if (countOfPeople === 0){
+        peopleList += `<p>No results found</p>`;
+    }
     for (i = 0; i < countOfPeople; i++){
         peopleList += `<h3 id="peopleTitle">${peopleInfo[i].title}</h3>`;
         peopleList += `<p>${peopleInfo[i].listingdescription}</p>`;
@@ -74,6 +80,9 @@ function buildPlacesDetails(placesInfo){
     console.log(placesInfo);
     placesList = "";
     countOfPlaces = placesInfo.length;
+    if (countOfPlaces === 0){
+        placesList += `<p>No results found</p>`;
+    }
     for (i = 0; i < countOfPlaces; i++){
         placesList += `<h3 id="peopleTitle">${placesInfo[i].title}</h3>`;
         placesList += `<p>${placesInfo[i].listingdescription}</p>`;
