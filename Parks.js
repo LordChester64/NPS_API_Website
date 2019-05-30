@@ -363,11 +363,11 @@ function filterByState() {
             console.log(park);
             if (designation){
                 if(parkInfo[park].designation === designation){
-                    document.getElementById("resultList").innerHTML += `<li><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
+                    document.getElementById("resultList").innerHTML += `<li class="${parkInfo[park].designation.toLowerCase()}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
                 }
             }
             else{
-                document.getElementById("resultList").innerHTML += `<li><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
+                document.getElementById("resultList").innerHTML += `<li class="${parkInfo[park].designation.toLowerCase()}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
             }
         }
         });
@@ -391,7 +391,7 @@ function keywordSearch(keyword){
             document.getElementById("resultList").innerHTML += `<li>No results found</li>`;
         }
         for (var park in parkInfo){
-            document.getElementById("resultList").innerHTML += `<li><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
+            document.getElementById("resultList").innerHTML += `<li class="${parkInfo[park].designation.toLowerCase()}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
         }
     });
 }
