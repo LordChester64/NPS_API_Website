@@ -75,6 +75,7 @@ function image(imgURL) {
 //Campgrounds call
 
 async function getCampgroundsInfo(code) {
+    document.getElementById("parkCampgrounds").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
     const response = await fetch(`https://developer.nps.gov/api/v1/campgrounds?parkCode=${code}&api_key=${config.API_Key}`);
     const responseData = await response.json();
     return await responseData.data;
@@ -93,6 +94,7 @@ function buildCampgroundList(campgroundInfo){
 //Visitor Center call
 
 async function getVisitorCenterInfo(code) {
+    document.getElementById("parkCenters").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
     const response = await fetch(`https://developer.nps.gov/api/v1/visitorcenters?parkCode=${code}&api_key=${config.API_Key}`);
     const responseData = await response.json();
     return await responseData.data;
@@ -111,6 +113,7 @@ function buildVisitorCenterList(visitorCenterInfo){
 //Alert call
 
 async function getAlertInfo(code) {
+    document.getElementById("alertBox").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
     const response = await fetch(`https://developer.nps.gov/api/v1/alerts?parkCode=${code}&api_key=${config.API_Key}`);
     const responseData = await response.json();
     return await responseData.data;
@@ -129,6 +132,7 @@ function buildAlertList(alertInfo){
 //Articles call
 
 async function getArticleInfo(code) {
+    document.getElementById("articleBox").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
     const response = await fetch(`https://developer.nps.gov/api/v1/articles?parkCode=${code}&api_key=${config.API_Key}`);
     const responseData = await response.json();
     return await responseData.data;
@@ -156,6 +160,7 @@ function buildArticleList(articlesInfo){
 //Events call
 
 async function getEventInfo(code) {
+    document.getElementById("eventBox").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
     const response = await fetch(`https://developer.nps.gov/api/v1/events?parkCode=${code}&api_key=${config.API_Key}`);
     const responseData = await response.json();
     return await responseData.data;
@@ -180,6 +185,7 @@ function buildEventList(eventsInfo){
 //News Releases call
 
 async function getNewsInfo(code) {
+    document.getElementById("newsBox").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
     const response = await fetch(`https://developer.nps.gov/api/v1/newsreleases?parkCode=${code}&api_key=${config.API_Key}`);
     const responseData = await response.json();
     return await responseData.data;
@@ -326,6 +332,7 @@ function initDropdowns() {
 
 function filterByState() {
     document.getElementById("resultList").innerHTML = "";
+    document.getElementById("resultList").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
     var stateDropDown = document.getElementById("states");
     var stateCode = stateDropDown.options[stateDropDown.selectedIndex].value;
     console.log(stateCode);
@@ -333,6 +340,7 @@ function filterByState() {
         console.log(`${parkInfo}`); 
         var designationFilter = document.getElementById("designation");
         var designation = designationFilter.options[designationFilter.selectedIndex].value;
+        document.getElementById('resultList').innerHTML = "";
         for (var park in parkInfo){
             console.log(park);
             if (designation){
