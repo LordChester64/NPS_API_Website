@@ -281,12 +281,46 @@ function initDropdowns() {
         "WI": "Wisconsin",
         "WY": "Wyoming"
     };
+    var designationList = [
+        null,
+        "National Battlefield",
+        "National Battlefield Park",
+        "National Battlefield Site",
+        "National Military Park",
+        "National Historical Park",
+        "National Historic Site",
+        "International Historic Site",
+        "National Lakeshore",
+        "National Memorial",
+        "National Monument",
+        "National Park",
+        "National Parkway",
+        "National Preserve",
+        "National Reserve",
+        "National Recreation Area",
+        "National River",
+        "National Wild and Scenic River",
+        "National Wild and Scenic Riverway",
+        "National Scenic Trail",
+        "National Seashore",
+
+        "Affiliated Area",
+        "National Heritage Area",
+        "National Trails System",
+        "National Wild & Scenic Rivers System"
+    ];
     var stateDropDown = document.getElementById("states");
     for (var state in stateList){
         var option = document.createElement("option");
         option.value = state;
         option.innerText = stateList[state];
         stateDropDown.appendChild(option);
+    }
+    var designationDropDown = document.getElementById("designation");
+    for (var designation in designationList){
+        var option = document.createElement("option");
+        option.innerText = designationList[designation];
+        designationDropDown.appendChild(option);
     }
 }
 
@@ -297,9 +331,18 @@ function filterByState() {
     console.log(stateCode);
     getParkList(stateCode, "stateCode=").then(parkInfo => {
         console.log(`${parkInfo}`); 
+        var designationFilter = document.getElementById("designation");
+        var designation = designationFilter.options[designationFilter.selectedIndex].value;
         for (var park in parkInfo){
             console.log(park);
-            document.getElementById("resultList").innerHTML += `<li><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`
+            if (designation){
+                if(parkInfo[park].designation === designation){
+                    document.getElementById("resultList").innerHTML += `<li><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
+                }
+            }
+            else{
+                document.getElementById("resultList").innerHTML += `<li><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
+            }
         }
         });
 }
