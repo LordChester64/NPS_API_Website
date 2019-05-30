@@ -382,4 +382,16 @@ async function getParkList(code, searchLine) {
     return await responseData.data;
 }
 
-
+function keywordSearch(keyword){
+    document.getElementById("resultList").innerHTML = "";
+    document.getElementById("resultList").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
+    getParkList(keyword, "q=").then(parkInfo => {
+        document.getElementById("resultList").innerHTML = "";
+        if (parkInfo.length === 0){
+            document.getElementById("resultList").innerHTML += `<li>No results found</li>`;
+        }
+        for (var park in parkInfo){
+            document.getElementById("resultList").innerHTML += `<li><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
+        }
+    });
+}
