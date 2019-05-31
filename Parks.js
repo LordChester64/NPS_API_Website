@@ -340,10 +340,30 @@ function initDropdowns() {
         option.innerText = stateList[state];
         stateDropDown.appendChild(option);
     }
+}
+
+function initDesignations(designationMap) {
     var designationDropDown = document.getElementById("designation");
-    for (var designation in designationList){
+    while(designationDropDown.firstChild) {
+        designationDropDown.removeChild(designationDropDown.firstChild);
+    }
+    var option = document.createElement("option");
+    option.value = "";
+    designationDropDown.appendChild(option);
+    var keys = Object.keys(designationMap);
+    console.log(keys);
+    for (var designation in keys.sort()){
         var option = document.createElement("option");
-        option.innerText = designationList[designation];
+        option.value = designation;
+        if (designationMap[keys[designation]]){
+            option.innerText = designationMap[keys[designation]];
+        }
+        else if (designation === 0){
+            option.innerText = "";
+        }
+        else{
+            option.innerText = "Other";
+        }
         designationDropDown.appendChild(option);
     }
 }
@@ -358,24 +378,46 @@ function filterByState() {
     console.log(stateCode);
     getParkList(stateCode, "stateCode=").then(parkInfo => {
         console.log(`${parkInfo}`); 
-        var designationFilter = document.getElementById("designation");
-        var designation = designationFilter.options[designationFilter.selectedIndex].value;
+        //var designationFilter = document.getElementById("designation");
+        //var designation = designationFilter.options[designationFilter.selectedIndex].value;
         document.getElementById("resultList").innerHTML = "";
+        var designationMap = {};
         for (var park in parkInfo){
             console.log(park);
-            if (designation){
-                if(parkInfo[park].designation === designation){
-                    numResults += 1;
-                    document.getElementById("resultList").innerHTML += `<li class="${parkInfo[park].designation.toLowerCase()}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
-                }
-            }
-            else{
+            var designationAttribute = generateDesignationAttribute(parkInfo[park].designation);
+            console.log(parkInfo[park].designation);
+            designationMap[`${designationAttribute}`] = parkInfo[park].designation
+            // if (designation){
+            //     if(parkInfo[park].designation === designation){
+            //         numResults += 1;
+            //         document.getElementById("resultList").innerHTML += `<li class="${designationAttribute}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
+            //     }
+            // }
+            // else{
                 numResults += 1;
-                document.getElementById("resultList").innerHTML += `<li class="${parkInfo[park].designation.toLowerCase()}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
-            }
+                document.getElementById("resultList").innerHTML += `<li class="${designationAttribute}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
+            //}
         }
+        initDesignations(designationMap);
         document.getElementById("numResults").innerHTML = `Retrieved ${numResults} results`;
         });
+}
+
+function filterByDesignation(){
+    var designationFilter = document.getElementById("designation");
+    var resultList = document.getElementById("resultList");
+    var designation = designationFilter.options[designationFilter.selectedIndex].value;
+    var children = resultList.childNodes;
+    for (var child in children){
+        console.log(children[child].className);
+        console.log(designation);
+        if (children[child].className !== designation){
+            children[child].style.display = "none";
+        }
+        else{
+            children[child].style.display = "block";
+        }
+    }
 }
 
 async function getParkList(code, searchLine) {
@@ -400,3 +442,8 @@ function keywordSearch(keyword){
         }
     });
 }
+
+function generateDesignationAttribute(fullDesignation){
+    return fullDesignation.toLowerCase().replace(/ /g,"");
+}
+
