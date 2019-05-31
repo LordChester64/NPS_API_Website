@@ -411,12 +411,12 @@ function filterByState() {
 function filterByDesignation(){
     var designationFilter = document.getElementById("designation");
     var resultList = document.getElementById("resultList");
-    var designation = designationFilter.options[designationFilter.selectedIndex].value;
+    var designation = designationFilter.options[designationFilter.selectedIndex].innerText;
     var children = resultList.childNodes;
     for (var child in children){
         console.log(children[child].className);
         console.log(designation);
-        if (children[child].className !== designation){
+        if (children[child].className !== generateDesignationAttribute(designation)){
             children[child].style.display = "none";
         }
         else{
