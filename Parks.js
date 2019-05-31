@@ -391,17 +391,14 @@ function filterByState() {
             console.log(park);
             var designationAttribute = generateDesignationAttribute(parkInfo[park].designation);
             console.log(parkInfo[park].designation);
-            designationMap[`${designationAttribute}`] = parkInfo[park].designation
-            // if (designation){
-            //     if(parkInfo[park].designation === designation){
-            //         numResults += 1;
-            //         document.getElementById("resultList").innerHTML += `<li class="${designationAttribute}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
-            //     }
-            // }
-            // else{
-                numResults += 1;
+            designationMap[`${designationAttribute}`] = parkInfo[park].designation;
+            numResults += 1;
+            if (designationAttribute){
                 document.getElementById("resultList").innerHTML += `<li class="${designationAttribute}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
-            //}
+            }
+            else{
+                document.getElementById("resultList").innerHTML += `<li class="other"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`
+            }
         }
         initDesignations(designationMap);
         document.getElementById("numResults").innerHTML = `Retrieved ${numResults} results`;
@@ -416,7 +413,14 @@ function filterByDesignation(){
     for (var child in children){
         console.log(children[child].className);
         console.log(designation);
-        if (children[child].className !== generateDesignationAttribute(designation)){
+        
+        if (generateDesignationAttribute(designation) === ""){
+            children[child].style.display = "block";
+        }
+        else if ((children[child].className === undefined) && (generateDesignationAttribute(designation) === "other")){
+            children[child].style.display = "block";
+        }
+        else if (children[child].className !== generateDesignationAttribute(designation)){
             children[child].style.display = "none";
         }
         else{
