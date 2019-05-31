@@ -36,7 +36,12 @@ function getParkDescription(code) {
         console.log(`${parkInfo}`); 
         document.getElementById('parkFullName').innerText = decodeURIComponent(escape(parkInfo.fullName));
         document.getElementById('parkStates').innerText = "States: " + parkInfo.states;
-        document.getElementById('parkName').innerText = "About the  " + parkInfo.designation;
+        if (parkInfo.designation){
+            document.getElementById('parkName').innerText = "About the  " + parkInfo.designation;
+        }
+        else{
+            document.getElementById('parkName').innerText = "About the site";
+        }
         document.getElementById('parkDescription').innerText = parkInfo.description;
         document.getElementById("parkCode").innerText = "Park Code: " + parkInfo.parkCode;
         document.getElementById("parkID").innerText = "Park ID: " + parkInfo.id;
