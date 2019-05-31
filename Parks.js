@@ -441,14 +441,23 @@ async function getParkList(code, searchLine) {
 function keywordSearch(keyword){
     document.getElementById("resultList").innerHTML = "";
     document.getElementById("resultList").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
+    var designationMap = {};
     getParkList(keyword, "q=").then(parkInfo => {
         document.getElementById("resultList").innerHTML = "";
         if (parkInfo.length === 0){
             document.getElementById("resultList").innerHTML += `<li>No results found</li>`;
         }
         for (var park in parkInfo){
-            document.getElementById("resultList").innerHTML += `<li class="${parkInfo[park].designation.toLowerCase()}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
+            var designationAttribute = generateDesignationAttribute(parkInfo[park].designation);
+            designationMap[`${designationAttribute}`] = parkInfo[park].designation;
+            if (designationAttribute){
+                document.getElementById("resultList").innerHTML += `<li class="${designationAttribute}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
+            }
+            else{
+                document.getElementById("resultList").innerHTML += `<li class="other"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`
+            }
         }
+        initDesignations(designationMap);
     });
 }
 
