@@ -203,7 +203,7 @@ a:hover {
 .visitorCenterContainer {
     background: rgb(236, 193, 137);
     border: solid 8px rgb(54, 99, 48);
-    height: 600px;
+    height: 200px;
     width: 800px;
     margin: 10px auto;
     position: relative;
@@ -214,7 +214,7 @@ a:hover {
 .campgroundContainer {
     background: rgb(236, 193, 137);
     border: solid 8px rgb(54, 99, 48);
-    height: 650px;
+    height: 750px;
     width: 800px;
     margin: 10px auto;
     position: relative;
@@ -222,6 +222,14 @@ a:hover {
 
 #campgroundName {
     margin: 4px;
+}
+
+/* #amenityIcons {
+    padding: 10px;
+} */
+
+.amenityPics {
+    margin: 10px;
 }
 
 #campgroundReservationLink {

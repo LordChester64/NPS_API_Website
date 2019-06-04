@@ -31,13 +31,44 @@ function buildCampgroundDetails(campgroundInfo, campgroundID){
         }
     }
     document.getElementById("campgroundName").innerText = `${thisCampground.name}`;
+    if (determineExistance(thisCampground.amenities.campstore) === "Yes"){
+        document.getElementById("amenityIcons").innerHTML += `<img src="./images/store.svg" height="30px" width="30px" title="Camp Store" class="amenityPics">`;
+    }
+    if (determineExistance(thisCampground.amenities.firewoodforsale) === "Yes"){
+        document.getElementById("amenityIcons").innerHTML += `<img src="./images/campfire.svg" height="30px" width="30px" title="Firewood for Sale" class="amenityPics">`;
+    }
+    if (determineExistance(thisCampground.amenities.foodstoragelockers) === "Yes"){
+        document.getElementById("amenityIcons").innerHTML += `<img src="./images/food-cache.svg" height="30px" width="30px" title="Food Storage Available" class="amenityPics">`;
+    }
+    if (determineExistance(thisCampground.amenities.laundry) === "Yes"){
+        document.getElementById("amenityIcons").innerHTML += `<img src="./images/laundry.svg" height="30px" width="30px" title="Laundry Available" class="amenityPics">`;
+    }
+    if (determineExistance(thisCampground.amenities.toilets[0]) === "Flush"){
+        document.getElementById("amenityIcons").innerHTML += `<img src="./images/restrooms.svg" height="30px" width="30px" title="Flush Toilets Available" class="amenityPics">`;
+    }
+    if (determineExistance(thisCampground.amenities.internetconnectivity) === "Yes"){
+        document.getElementById("amenityIcons").innerHTML += `<img src="./images/wi-fi.svg" height="30px" width="30px" title="Internet Connection Available" class="amenityPics">`;
+    }
+    if (determineExistance(thisCampground.amenities.potablewater[0]) === "Yes"){
+        document.getElementById("amenityIcons").innerHTML += `<img src="./images/wi-fi.svg" height="30px" width="30px" title="Internet Connection Available" class="amenityPics">`;
+    }
+    if (determineExistance(thisCampground.amenities.showers[0]) === "Hot"){
+        document.getElementById("amenityIcons").innerHTML += `<img src="./images/showers.svg" height="30px" width="30px" title="Hot Showers Available" class="amenityPics">`;
+    }
+    if (determineExistance(thisCampground.amenities.showers[0]) === "Cold"){
+        document.getElementById("amenityIcons").innerHTML += `<img src="./images/showers.svg" height="30px" width="30px" title="Cold Showers Available" class="amenityPics">`;
+    }
     document.getElementById("campgroundNameHeading").innerText = `About ${thisCampground.name}:`;
     document.getElementById("campgroundDescription").innerText = `${thisCampground.description}\n`;
     document.getElementById("campgroundDirectionsHeading").innerText = `Directions:\n`;
-    document.getElementById("campgroundDirections").innerText = `${thisCampground.directionsoverview}`;
+    if (thisCampground.directionsoverview){
+        document.getElementById("campgroundDirections").innerText = `${thisCampground.directionsoverview}`;
+    }
+    else{
+        document.getElementById("campgroundDirections").innerText = "No directions found"
+    }
     document.getElementById("campgroundReservationLink").innerHTML = `<a href="${thisCampground.regulationsurl}">Regulations for the campsite</a>`;
-    displayMap(thisCampground);
-    
+    displayMap(thisCampground);    
 }
 
 function displayMap(thisCampground) {
@@ -64,5 +95,14 @@ function parseLatLong(latLong){
     return point;
 }
 
-
+function determineExistance(value) {
+    if (value){
+        var splitValue = value.split(" ");
+        var ans = splitValue[0];
+        return ans;
+    }
+    else{
+        return value;
+    }
+}
 
