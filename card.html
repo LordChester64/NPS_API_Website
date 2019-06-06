@@ -23,11 +23,11 @@
         <button onclick="parkSearch(document.getElementById('searchedName').value)" id="nameButton">Get Park
             Info</button>
         <input type="text" id="searchedKeyword">
-        <button onclick="keywordSearch(document.getElementById('searchedKeyword').value)">Keyword Search</button>
+        <button onclick="search()">Keyword Search</button>
 
         <div id="stateFilter">
             <label for="states">State:</label>
-            <select name="states" id="states" onchange="filterByState()"></select>
+            <select name="states" id="states" onchange="search()"></select>
         </div>
 
         <div id="designationFilter">

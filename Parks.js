@@ -382,29 +382,80 @@ function filterByState() {
     var stateDropDown = document.getElementById("states");
     var stateCode = stateDropDown.options[stateDropDown.selectedIndex].value;
     var numResults = 0;
+    var children = resultList.childNodes;
     console.log(stateCode);
-    getParkList(stateCode, "stateCode=").then(parkInfo => {
-        console.log(`${parkInfo}`); 
-        //var designationFilter = document.getElementById("designation");
-        //var designation = designationFilter.options[designationFilter.selectedIndex].value;
-        document.getElementById("resultList").innerHTML = "";
-        var designationMap = {};
-        for (var park in parkInfo){
-            console.log(park);
-            var designationAttribute = generateDesignationAttribute(parkInfo[park].designation);
-            console.log(parkInfo[park].designation);
-            designationMap[`${designationAttribute}`] = parkInfo[park].designation;
-            numResults += 1;
-            if (designationAttribute){
-                document.getElementById("resultList").innerHTML += `<li class="${designationAttribute}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
+    if (searchedByKeyword){
+        
+    }
+    else{
+        getParkList(stateCode, "stateCode=").then(parkInfo => {
+            console.log(`${parkInfo}`); 
+            //var designationFilter = document.getElementById("designation");
+            //var designation = designationFilter.options[designationFilter.selectedIndex].value;
+            document.getElementById("resultList").innerHTML = "";
+            var designationMap = {};
+            for (var park in parkInfo){
+                console.log(park);
+                var designationAttribute = generateDesignationAttribute(parkInfo[park].designation);
+                console.log(parkInfo[park].designation);
+                designationMap[`${designationAttribute}`] = parkInfo[park].designation;
+                numResults += 1;
+                if (designationAttribute){
+                    document.getElementById("resultList").innerHTML += `<li class="${designationAttribute}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
+                }
+                else{
+                    document.getElementById("resultList").innerHTML += `<li class="other"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`
+                }
             }
-            else{
-                document.getElementById("resultList").innerHTML += `<li class="other"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`
-            }
-        }
-        initDesignations(designationMap);
-        document.getElementById("numResults").innerHTML = `Retrieved ${numResults} results`;
+            initDesignations(designationMap);
+            document.getElementById("numResults").innerHTML = `Retrieved ${numResults} results`;
         });
+    }
+}
+
+function search() {
+    document.getElementById("resultList").innerHTML = "";
+    document.getElementById("resultList").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
+    document.getElementById("numResults").innerHTML = "";
+    var stateDropDown = document.getElementById("states");
+    var stateCode = stateDropDown.options[stateDropDown.selectedIndex].value;
+    var searchArray = [];
+    if (stateCode !== "null"){
+        searchArray.push(`stateCode=${stateCode}`);
+    }
+    var numResults = 0;
+    var keywords = document.getElementById('searchedKeyword').value;
+    if (keywords){
+        searchArray.push(`q=${keywords}`);
+    }
+    console.log(stateCode);
+    if (searchArray.length){    
+        getList(searchArray.join("&")).then(parkInfo => {
+            console.log(`${parkInfo}`); 
+            //var designationFilter = document.getElementById("designation");
+            //var designation = designationFilter.options[designationFilter.selectedIndex].value;
+            document.getElementById("resultList").innerHTML = "";
+            var designationMap = {};
+            for (var park in parkInfo){
+                console.log(park);
+                var designationAttribute = generateDesignationAttribute(parkInfo[park].designation);
+                console.log(parkInfo[park].designation);
+                designationMap[`${designationAttribute}`] = parkInfo[park].designation;
+                numResults += 1;
+                if (designationAttribute){
+                    document.getElementById("resultList").innerHTML += `<li class="${designationAttribute}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
+                }
+                else{
+                    document.getElementById("resultList").innerHTML += `<li class="other"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`
+                }
+            }
+            initDesignations(designationMap);
+            document.getElementById("numResults").innerHTML = `Retrieved ${numResults} results`;
+        });
+    }
+    else{
+        document.getElementById("resultList").innerHTML = `<p>No results found</p>`;
+    }
 }
 
 function filterByDesignation(){
@@ -413,16 +464,16 @@ function filterByDesignation(){
     var designation = designationFilter.options[designationFilter.selectedIndex].innerText;
     var children = resultList.childNodes;
     for (var child in children){
-        console.log(children[child].className);
-        console.log(designation);
-        
+        designationName = children[child].className.split(" ")[0];
+        console.log(designationName);
+        console.log(designation);        
         if (generateDesignationAttribute(designation) === ""){
             children[child].style.display = "block";
         }
-        else if ((children[child].className === undefined) && (generateDesignationAttribute(designation) === "other")){
+        else if ((designationName === undefined) && (generateDesignationAttribute(designation) === "other")){
             children[child].style.display = "block";
         }
-        else if (children[child].className !== generateDesignationAttribute(designation)){
+        else if (designationName !== generateDesignationAttribute(designation)){
             children[child].style.display = "none";
         }
         else{
@@ -435,6 +486,15 @@ async function getParkList(code, searchLine) {
     console.log(config.API_Key);
     const response = await fetch(`https://developer.nps.gov/api/v1/parks?${searchLine}${code}&fields=images&api_key=${config.API_Key}`);
     console.log(`${searchLine}${code}`);
+    const responseData = await response.json();
+
+    return await responseData.data;
+}
+
+async function getList(searchParameters) {
+    console.log(config.API_Key);
+    const response = await fetch(`https://developer.nps.gov/api/v1/parks?${searchParameters}&fields=images&api_key=${config.API_Key}`);
+    console.log(`${searchParameters}`);
     const responseData = await response.json();
 
     return await responseData.data;
