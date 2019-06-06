@@ -1,32 +1,137 @@
 var searchedByKeyword = false;
 
-function getCode(string) {
-    var searchString = string;
-    var parkCode = "";
-    searchString = searchString.toLowerCase();
-    searchString = searchString.replace("national", "");
-    searchString = searchString.replace("park", "");
-    searchString = searchString.replace(" of ", "");
-    searchString = searchString.replace(" the ", "");
-    searchString = searchString.replace(" and ", "");
-    searchString = searchString.trim();
-    var codeArray = searchString.split(" ");
-    if (codeArray.length === 1){
-        parkCode = codeArray[0].substring(0, 4);
+function init() {
+    initDropdowns();
+    var searchParams = new URLSearchParams(window.location.href.split("?")[1]);
+    var parkCode = searchParams.get("parkCode");
+    if (parkCode){
+        getParkDescription(parkCode);
     }
-    else{
-        parkCode = codeArray[0].substring(0,2);
-        parkCode += codeArray[1].substring(0,2);
-    }
-    return parkCode;
 }
 
-async function getParkInfo(code) {
-    const response = await fetch(`https://developer.nps.gov/api/v1/parks?parkCode=${code}&fields=images&api_key=${config.API_Key}`);
+function initDropdowns() {
+    var stateList = {
+        null:"",
+        "AL": "Alabama",
+        "AK": "Alaska",
+        "AS": "American Samoa",
+        "AZ": "Arizona",
+        "AR": "Arkansas",
+        "CA": "California",
+        "CO": "Colorado",
+        "CT": "Connecticut",
+        "DE": "Delaware",
+        "DC": "District Of Columbia",
+        "FM": "Federated States Of Micronesia",
+        "FL": "Florida",
+        "GA": "Georgia",
+        "GU": "Guam",
+        "HI": "Hawaii",
+        "ID": "Idaho",
+        "IL": "Illinois",
+        "IN": "Indiana",
+        "IA": "Iowa",
+        "KS": "Kansas",
+        "KY": "Kentucky",
+        "LA": "Louisiana",
+        "ME": "Maine",
+        "MH": "Marshall Islands",
+        "MD": "Maryland",
+        "MA": "Massachusetts",
+        "MI": "Michigan",
+        "MN": "Minnesota",
+        "MS": "Mississippi",
+        "MO": "Missouri",
+        "MT": "Montana",
+        "NE": "Nebraska",
+        "NV": "Nevada",
+        "NH": "New Hampshire",
+        "NJ": "New Jersey",
+        "NM": "New Mexico",
+        "NY": "New York",
+        "NC": "North Carolina",
+        "ND": "North Dakota",
+        "MP": "Northern Mariana Islands",
+        "OH": "Ohio",
+        "OK": "Oklahoma",
+        "OR": "Oregon",
+        "PW": "Palau",
+        "PA": "Pennsylvania",
+        "PR": "Puerto Rico",
+        "RI": "Rhode Island",
+        "SC": "South Carolina",
+        "SD": "South Dakota",
+        "TN": "Tennessee",
+        "TX": "Texas",
+        "UT": "Utah",
+        "VT": "Vermont",
+        "VI": "Virgin Islands",
+        "VA": "Virginia",
+        "WA": "Washington",
+        "WV": "West Virginia",
+        "WI": "Wisconsin",
+        "WY": "Wyoming"
+    };
+    var designationList = [
+        null,
+        "National Battlefield",
+        "National Battlefield Park",
+        "National Battlefield Site",
+        "National Military Park",
+        "National Historical Park",
+        "National Historic Site",
+        "International Historic Site",
+        "National Lakeshore",
+        "National Memorial",
+        "National Monument",
+        "National Park",
+        "National Parkway",
+        "National Preserve",
+        "National Reserve",
+        "National Recreation Area",
+        "National River",
+        "National Wild and Scenic River",
+        "National Wild and Scenic Riverway",
+        "National Scenic Trail",
+        "National Seashore",
 
-    const responseData = await response.json();
+        "Affiliated Area",
+        "National Heritage Area",
+        "National Trails System",
+        "National Wild & Scenic Rivers System"
+    ];
+    var stateDropDown = document.getElementById("states");
+    for (var state in stateList){
+        var option = document.createElement("option");
+        option.value = state;
+        option.innerText = stateList[state];
+        stateDropDown.appendChild(option);
+    }
+}
 
-    return await responseData.data[0];
+function initDesignations(designationMap) {
+    var designationDropDown = document.getElementById("designation");
+    while(designationDropDown.firstChild) {
+        designationDropDown.removeChild(designationDropDown.firstChild);
+    }
+    var option = document.createElement("option");
+    option.value = "";
+    designationDropDown.appendChild(option);
+    var keys = Object.keys(designationMap);
+    for (var designation in keys.sort()){
+        var option = document.createElement("option");
+        option.value = designation;
+        if (designationMap[keys[designation]]){
+            option.innerText = designationMap[keys[designation]];
+        }
+        else if (designation === 0){
+            option.innerText = "";
+        }
+        else{
+            option.innerText = "Other";
+        }
+        designationDropDown.appendChild(option);
+    }
 }
 
 function getParkDescription(code) {
@@ -63,6 +168,35 @@ function getParkDescription(code) {
     getNewsInfo(code).then(newsInfo => {
         buildNewsList(newsInfo);
     });
+}
+
+function getCode(string) {
+    var searchString = string;
+    var parkCode = "";
+    searchString = searchString.toLowerCase();
+    searchString = searchString.replace("national", "");
+    searchString = searchString.replace("park", "");
+    searchString = searchString.replace(" of ", "");
+    searchString = searchString.replace(" the ", "");
+    searchString = searchString.replace(" and ", "");
+    searchString = searchString.trim();
+    var codeArray = searchString.split(" ");
+    if (codeArray.length === 1){
+        parkCode = codeArray[0].substring(0, 4);
+    }
+    else{
+        parkCode = codeArray[0].substring(0,2);
+        parkCode += codeArray[1].substring(0,2);
+    }
+    return parkCode;
+}
+
+async function getParkInfo(code) {
+    const response = await fetch(`https://developer.nps.gov/api/v1/parks?parkCode=${code}&fields=images&api_key=${config.API_Key}`);
+
+    const responseData = await response.json();
+
+    return await responseData.data[0];
 }
 
 function image(imgURL) {
@@ -215,140 +349,6 @@ function buildNewsList(newsInfo){
     document.getElementById("newsBox").innerHTML = newsList;
 }
 
-function init() {
-    initDropdowns();
-    var searchParams = new URLSearchParams(window.location.href.split("?")[1]);
-    var parkCode = searchParams.get("parkCode");
-    if (parkCode){
-        getParkDescription(parkCode);
-    }
-}
-
-function initDropdowns() {
-    var stateList = {
-        null:"",
-        "AL": "Alabama",
-        "AK": "Alaska",
-        "AS": "American Samoa",
-        "AZ": "Arizona",
-        "AR": "Arkansas",
-        "CA": "California",
-        "CO": "Colorado",
-        "CT": "Connecticut",
-        "DE": "Delaware",
-        "DC": "District Of Columbia",
-        "FM": "Federated States Of Micronesia",
-        "FL": "Florida",
-        "GA": "Georgia",
-        "GU": "Guam",
-        "HI": "Hawaii",
-        "ID": "Idaho",
-        "IL": "Illinois",
-        "IN": "Indiana",
-        "IA": "Iowa",
-        "KS": "Kansas",
-        "KY": "Kentucky",
-        "LA": "Louisiana",
-        "ME": "Maine",
-        "MH": "Marshall Islands",
-        "MD": "Maryland",
-        "MA": "Massachusetts",
-        "MI": "Michigan",
-        "MN": "Minnesota",
-        "MS": "Mississippi",
-        "MO": "Missouri",
-        "MT": "Montana",
-        "NE": "Nebraska",
-        "NV": "Nevada",
-        "NH": "New Hampshire",
-        "NJ": "New Jersey",
-        "NM": "New Mexico",
-        "NY": "New York",
-        "NC": "North Carolina",
-        "ND": "North Dakota",
-        "MP": "Northern Mariana Islands",
-        "OH": "Ohio",
-        "OK": "Oklahoma",
-        "OR": "Oregon",
-        "PW": "Palau",
-        "PA": "Pennsylvania",
-        "PR": "Puerto Rico",
-        "RI": "Rhode Island",
-        "SC": "South Carolina",
-        "SD": "South Dakota",
-        "TN": "Tennessee",
-        "TX": "Texas",
-        "UT": "Utah",
-        "VT": "Vermont",
-        "VI": "Virgin Islands",
-        "VA": "Virginia",
-        "WA": "Washington",
-        "WV": "West Virginia",
-        "WI": "Wisconsin",
-        "WY": "Wyoming"
-    };
-    var designationList = [
-        null,
-        "National Battlefield",
-        "National Battlefield Park",
-        "National Battlefield Site",
-        "National Military Park",
-        "National Historical Park",
-        "National Historic Site",
-        "International Historic Site",
-        "National Lakeshore",
-        "National Memorial",
-        "National Monument",
-        "National Park",
-        "National Parkway",
-        "National Preserve",
-        "National Reserve",
-        "National Recreation Area",
-        "National River",
-        "National Wild and Scenic River",
-        "National Wild and Scenic Riverway",
-        "National Scenic Trail",
-        "National Seashore",
-
-        "Affiliated Area",
-        "National Heritage Area",
-        "National Trails System",
-        "National Wild & Scenic Rivers System"
-    ];
-    var stateDropDown = document.getElementById("states");
-    for (var state in stateList){
-        var option = document.createElement("option");
-        option.value = state;
-        option.innerText = stateList[state];
-        stateDropDown.appendChild(option);
-    }
-}
-
-function initDesignations(designationMap) {
-    var designationDropDown = document.getElementById("designation");
-    while(designationDropDown.firstChild) {
-        designationDropDown.removeChild(designationDropDown.firstChild);
-    }
-    var option = document.createElement("option");
-    option.value = "";
-    designationDropDown.appendChild(option);
-    var keys = Object.keys(designationMap);
-    for (var designation in keys.sort()){
-        var option = document.createElement("option");
-        option.value = designation;
-        if (designationMap[keys[designation]]){
-            option.innerText = designationMap[keys[designation]];
-        }
-        else if (designation === 0){
-            option.innerText = "";
-        }
-        else{
-            option.innerText = "Other";
-        }
-        designationDropDown.appendChild(option);
-    }
-}
-
 function search() {
     document.getElementById("resultList").innerHTML = "";
     document.getElementById("resultList").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
@@ -388,6 +388,13 @@ function search() {
     }
 }
 
+async function getList(searchParameters) {
+    const response = await fetch(`https://developer.nps.gov/api/v1/parks?${searchParameters}&fields=images&api_key=${config.API_Key}`);
+    const responseData = await response.json();
+
+    return await responseData.data;
+}
+
 function filterByDesignation(){
     var designationFilter = document.getElementById("designation");
     var resultList = document.getElementById("resultList");
@@ -408,20 +415,6 @@ function filterByDesignation(){
             children[child].style.display = "block";
         }
     }
-}
-
-async function getParkList(code, searchLine) {
-    const response = await fetch(`https://developer.nps.gov/api/v1/parks?${searchLine}${code}&fields=images&api_key=${config.API_Key}`);
-    const responseData = await response.json();
-
-    return await responseData.data;
-}
-
-async function getList(searchParameters) {
-    const response = await fetch(`https://developer.nps.gov/api/v1/parks?${searchParameters}&fields=images&api_key=${config.API_Key}`);
-    const responseData = await response.json();
-
-    return await responseData.data;
 }
 
 function keywordSearch(keyword){
@@ -446,6 +439,13 @@ function keywordSearch(keyword){
         }
         initDesignations(designationMap);
     });
+}
+
+async function getParkList(code, searchLine) {
+    const response = await fetch(`https://developer.nps.gov/api/v1/parks?${searchLine}${code}&fields=images&api_key=${config.API_Key}`);
+    const responseData = await response.json();
+
+    return await responseData.data;
 }
 
 function generateDesignationAttribute(fullDesignation){

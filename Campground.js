@@ -8,6 +8,7 @@ function getCampgroundDescription(){
 }
 
 async function getCampgroundInfo(code) {
+    document.getElementById("campgroundDescription").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
     const response = await fetch(`https://developer.nps.gov/api/v1/campgrounds?parkCode=${code}&api_key=${config.API_Key}`);
     const responseData = await response.json();
     return await responseData.data;
