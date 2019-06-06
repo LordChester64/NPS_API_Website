@@ -8,7 +8,6 @@
 */
 
 /* Simple CSS */
-
 h5 {
     margin: 2px 2px 0px;
 }
@@ -17,11 +16,17 @@ h6 {
     margin: 2px 2px 0px;
 }
 
-
 /* Main page formatting */
-
 .searchHeader {
     margin: 2px 20px 2px 2px; 
+}
+
+#states {
+    min-width: 200px;
+}
+
+#designation {
+    min-width: 200px;
 }
 
 #nameButton {

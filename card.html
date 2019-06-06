@@ -17,12 +17,11 @@
 </head>
 
 <body onload="init()">
-
     <div class="searchHeader">
-        <input type="text" id="searchedName">
+        <input type="text" id="searchedName" placeholder="Search by name">
         <button onclick="parkSearch(document.getElementById('searchedName').value)" id="nameButton">Get Park
             Info</button>
-        <input type="text" id="searchedKeyword">
+        <input type="text" id="searchedKeyword" placeholder="Search by keyword">
         <button onclick="search()">Keyword Search</button>
 
         <div id="stateFilter">
@@ -36,36 +35,17 @@
         </div>
 
         <hr />
-    </div><!-- end searchButton -->
+    </div><!-- end searchHeader -->
 
     <div class="leftContainer">
-
-        <div id="numResults">
-
-        </div>
-
-
-        <div id="resultList">
-
-        </div>
-
-
+        <div id="numResults"></div>
+        <div id="resultList"></div>
     </div>
 
-
-
     <div class="container">
-
-
         <div class="header">
-
-            <div id="parkFullName">
-
-            </div>
-
-            <div id="parkStates">
-
-            </div>
+            <div id="parkFullName"></div>
+            <div id="parkStates"></div>
         </div><!-- end header -->
 
         <div id="parkPictureDiv" class="parkPictureDiv">
@@ -73,65 +53,32 @@
         </div>
 
         <div class="body">
-
-            <h4 id="parkName">
-
-            </h4>
-
-            <p id="parkDescription">
-
-            </p>
+            <h4 id="parkName"></h4>
+            <p id="parkDescription"></p>
         </div><!-- end body -->
 
         <div class="leftBox">
-
-            <div id="parkCenters">
-
-            </div>
-
+            <div id="parkCenters"></div>
         </div><!-- end leftBox -->
 
         <div class="rightBox">
-
-            <div id="parkCampgrounds">
-
-            </div>
-
+            <div id="parkCampgrounds"></div>
         </div><!-- end rightBox -->
 
         <div class="extraInfo">
-            <div id="alertBox">
-
-            </div>
-
-            <div id="articleBox">
-
-            </div>
-
-            <div id="eventBox">
-
-            </div>
-
-            <div id="newsBox">
-
-            </div>
+            <div id="alertBox"></div>
+            <div id="articleBox"></div>
+            <div id="eventBox"></div>
+            <div id="newsBox"></div>
         </div><!-- end extraInfo -->
 
         <div class="learningMaterials">
-            <div id="learningLink">
-
-            </div>
-        </div>
+            <div id="learningLink"></div>
+        </div><!-- end learningMaterials -->
 
         <div class="footer">
-
-            <p id="parkCode">
-
-            </p>
-
-            <p id="parkID">
-
-            </p>
+            <p id="parkCode"></p>
+            <p id="parkID"></p>
         </div><!-- end footer -->
     </div><!-- end container -->
 </body>

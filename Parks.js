@@ -1,6 +1,5 @@
 var searchedByKeyword = false;
 
-
 function getCode(string) {
     var searchString = string;
     var parkCode = "";
@@ -12,7 +11,6 @@ function getCode(string) {
     searchString = searchString.replace(" and ", "");
     searchString = searchString.trim();
     var codeArray = searchString.split(" ");
-    console.log(codeArray)
     if (codeArray.length === 1){
         parkCode = codeArray[0].substring(0, 4);
     }
@@ -20,12 +18,10 @@ function getCode(string) {
         parkCode = codeArray[0].substring(0,2);
         parkCode += codeArray[1].substring(0,2);
     }
-    console.log(parkCode);
     return parkCode;
 }
 
 async function getParkInfo(code) {
-    console.log(config.API_Key);
     const response = await fetch(`https://developer.nps.gov/api/v1/parks?parkCode=${code}&fields=images&api_key=${config.API_Key}`);
 
     const responseData = await response.json();
@@ -35,7 +31,6 @@ async function getParkInfo(code) {
 
 function getParkDescription(code) {
     getParkInfo(code).then(parkInfo => {
-        console.log(`${parkInfo}`); 
         document.getElementById('parkFullName').innerText = decodeURIComponent(escape(parkInfo.fullName));
         document.getElementById('parkStates').innerText = "States: " + parkInfo.states;
         if (parkInfo.designation){
@@ -71,16 +66,10 @@ function getParkDescription(code) {
 }
 
 function image(imgURL) {
-    // var img = document.createElement("IMG");
-    // img.src = imgURL;
-    // img.style.height = "auto";
-    // img.style.width = "100%";
     document.getElementById("parkPicture").src = imgURL;
 }
 
-
 //Campgrounds call
-
 async function getCampgroundsInfo(code) {
     document.getElementById("parkCampgrounds").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
     const response = await fetch(`https://developer.nps.gov/api/v1/campgrounds?parkCode=${code}&api_key=${config.API_Key}`);
@@ -100,9 +89,7 @@ function buildCampgroundList(campgroundInfo){
     document.getElementById("parkCampgrounds").innerHTML = campgroundList;
 }
 
-
 //Visitor Center call
-
 async function getVisitorCenterInfo(code) {
     document.getElementById("parkCenters").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
     const response = await fetch(`https://developer.nps.gov/api/v1/visitorcenters?parkCode=${code}&api_key=${config.API_Key}`);
@@ -122,9 +109,7 @@ function buildVisitorCenterList(visitorCenterInfo){
     document.getElementById("parkCenters").innerHTML = visitorCenterList;
 }
 
-
 //Alert call
-
 async function getAlertInfo(code) {
     document.getElementById("alertBox").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
     const response = await fetch(`https://developer.nps.gov/api/v1/alerts?parkCode=${code}&api_key=${config.API_Key}`);
@@ -144,9 +129,7 @@ function buildAlertList(alertInfo){
     document.getElementById("alertBox").innerHTML = alertList;
 }
 
-
 //Articles call
-
 async function getArticleInfo(code) {
     document.getElementById("articleBox").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
     const response = await fetch(`https://developer.nps.gov/api/v1/articles?parkCode=${code}&api_key=${config.API_Key}`);
@@ -175,9 +158,7 @@ function buildArticleList(articlesInfo){
     document.getElementById("articleBox").innerHTML = articlesList;
 }
 
-
 //Events call
-
 async function getEventInfo(code) {
     document.getElementById("eventBox").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
     const response = await fetch(`https://developer.nps.gov/api/v1/events?parkCode=${code}&api_key=${config.API_Key}`);
@@ -203,9 +184,7 @@ function buildEventList(eventsInfo){
     document.getElementById("eventBox").innerHTML = eventsList;
 }
 
-
 //News Releases call
-
 async function getNewsInfo(code) {
     document.getElementById("newsBox").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
     const response = await fetch(`https://developer.nps.gov/api/v1/newsreleases?parkCode=${code}&api_key=${config.API_Key}`);
@@ -244,10 +223,6 @@ function init() {
         getParkDescription(parkCode);
     }
 }
-
-
-
-
 
 function initDropdowns() {
     var stateList = {
@@ -358,7 +333,6 @@ function initDesignations(designationMap) {
     option.value = "";
     designationDropDown.appendChild(option);
     var keys = Object.keys(designationMap);
-    console.log(keys);
     for (var designation in keys.sort()){
         var option = document.createElement("option");
         option.value = designation;
@@ -372,44 +346,6 @@ function initDesignations(designationMap) {
             option.innerText = "Other";
         }
         designationDropDown.appendChild(option);
-    }
-}
-
-function filterByState() {
-    document.getElementById("resultList").innerHTML = "";
-    document.getElementById("resultList").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
-    document.getElementById("numResults").innerHTML = "";
-    var stateDropDown = document.getElementById("states");
-    var stateCode = stateDropDown.options[stateDropDown.selectedIndex].value;
-    var numResults = 0;
-    var children = resultList.childNodes;
-    console.log(stateCode);
-    if (searchedByKeyword){
-        
-    }
-    else{
-        getParkList(stateCode, "stateCode=").then(parkInfo => {
-            console.log(`${parkInfo}`); 
-            //var designationFilter = document.getElementById("designation");
-            //var designation = designationFilter.options[designationFilter.selectedIndex].value;
-            document.getElementById("resultList").innerHTML = "";
-            var designationMap = {};
-            for (var park in parkInfo){
-                console.log(park);
-                var designationAttribute = generateDesignationAttribute(parkInfo[park].designation);
-                console.log(parkInfo[park].designation);
-                designationMap[`${designationAttribute}`] = parkInfo[park].designation;
-                numResults += 1;
-                if (designationAttribute){
-                    document.getElementById("resultList").innerHTML += `<li class="${designationAttribute}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
-                }
-                else{
-                    document.getElementById("resultList").innerHTML += `<li class="other"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`
-                }
-            }
-            initDesignations(designationMap);
-            document.getElementById("numResults").innerHTML = `Retrieved ${numResults} results`;
-        });
     }
 }
 
@@ -428,18 +364,12 @@ function search() {
     if (keywords){
         searchArray.push(`q=${keywords}`);
     }
-    console.log(stateCode);
     if (searchArray.length){    
         getList(searchArray.join("&")).then(parkInfo => {
-            console.log(`${parkInfo}`); 
-            //var designationFilter = document.getElementById("designation");
-            //var designation = designationFilter.options[designationFilter.selectedIndex].value;
             document.getElementById("resultList").innerHTML = "";
             var designationMap = {};
             for (var park in parkInfo){
-                console.log(park);
                 var designationAttribute = generateDesignationAttribute(parkInfo[park].designation);
-                console.log(parkInfo[park].designation);
                 designationMap[`${designationAttribute}`] = parkInfo[park].designation;
                 numResults += 1;
                 if (designationAttribute){
@@ -465,8 +395,6 @@ function filterByDesignation(){
     var children = resultList.childNodes;
     for (var child in children){
         designationName = children[child].className.split(" ")[0];
-        console.log(designationName);
-        console.log(designation);        
         if (generateDesignationAttribute(designation) === ""){
             children[child].style.display = "block";
         }
@@ -483,18 +411,14 @@ function filterByDesignation(){
 }
 
 async function getParkList(code, searchLine) {
-    console.log(config.API_Key);
     const response = await fetch(`https://developer.nps.gov/api/v1/parks?${searchLine}${code}&fields=images&api_key=${config.API_Key}`);
-    console.log(`${searchLine}${code}`);
     const responseData = await response.json();
 
     return await responseData.data;
 }
 
 async function getList(searchParameters) {
-    console.log(config.API_Key);
     const response = await fetch(`https://developer.nps.gov/api/v1/parks?${searchParameters}&fields=images&api_key=${config.API_Key}`);
-    console.log(`${searchParameters}`);
     const responseData = await response.json();
 
     return await responseData.data;

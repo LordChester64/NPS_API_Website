@@ -1,17 +1,11 @@
-//var config = JSON.parse(env);
-
 function getVisitorCenterDescription(){
     var searchParams = new URLSearchParams(window.location.href.split("?")[1]);
-    for (let p of searchParams){
-        console.log(p);
-    }
     var parkCode = searchParams.get("parkCode");
     var visitorCenterID = searchParams.get("visitorCenterID");
     getVisitorCenterInfo(parkCode).then(visitorCenterInfo => {
         buildVisitorCenterDetails(visitorCenterInfo, visitorCenterID);
     });
 }
-
 
 async function getVisitorCenterInfo(code) {
     const response = await fetch(`https://developer.nps.gov/api/v1/visitorcenters?parkCode=${code}&api_key=${config.API_Key}`);
@@ -20,7 +14,6 @@ async function getVisitorCenterInfo(code) {
 }
 
 function buildVisitorCenterDetails(visitorCenterInfo, visitorCenterID){
-    console.log(visitorCenterInfo);
     visitorCenterList = "";
     countOfVisitorCenters = visitorCenterInfo.length;
     for (i = 0; i < countOfVisitorCenters; i++){

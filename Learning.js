@@ -1,8 +1,5 @@
 function getLearningMaterials(){
     var searchParams = new URLSearchParams(window.location.href.split("?")[1]);
-    for (let p of searchParams){
-        console.log(p);
-    }
     var parkCode = searchParams.get("parkCode");
     getLessonInfo(parkCode).then(lessonInfo => {
         buildLessonDetails(lessonInfo);
@@ -15,9 +12,7 @@ function getLearningMaterials(){
     });
 }
 
-
 //Lesson Plan calls
-
 async function getLessonInfo(code) {
     const response = await fetch(`https://developer.nps.gov/api/v1/lessonplans?parkCode=${code}&api_key=${config.API_Key}`);
     const responseData = await response.json();
@@ -25,7 +20,6 @@ async function getLessonInfo(code) {
 }
 
 function buildLessonDetails(lessonInfo){
-    console.log(lessonInfo);
     lessonList = "";
     countOfLessons = lessonInfo.length;
     if (countOfLessons === 0){
@@ -38,9 +32,7 @@ function buildLessonDetails(lessonInfo){
     document.getElementById("lessonScroll").innerHTML = lessonList;    
 }
 
-
 //People calls
-
 async function getPeopleInfo(code) {
     const response = await fetch(`https://developer.nps.gov/api/v1/people?parkCode=${code}&api_key=${config.API_Key}`);
     const responseData = await response.json();
@@ -48,7 +40,6 @@ async function getPeopleInfo(code) {
 }
 
 function buildPeopleDetails(peopleInfo){
-    console.log(peopleInfo);
     peopleList = "";
     countOfPeople = peopleInfo.length;
     if (countOfPeople === 0){
@@ -67,9 +58,7 @@ function buildPeopleDetails(peopleInfo){
     document.getElementById("peopleScroll").innerHTML = peopleList;    
 }
 
-
 //Places calls
-
 async function getPlacesInfo(code) {
     const response = await fetch(`https://developer.nps.gov/api/v1/places?parkCode=${code}&api_key=${config.API_Key}`);
     const responseData = await response.json();
@@ -77,7 +66,6 @@ async function getPlacesInfo(code) {
 }
 
 function buildPlacesDetails(placesInfo){
-    console.log(placesInfo);
     placesList = "";
     countOfPlaces = placesInfo.length;
     if (countOfPlaces === 0){
