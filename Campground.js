@@ -9,10 +9,22 @@ function getCampgroundDescription() {
 
 async function getCampgroundInfo(code) {
     document.getElementById("campgroundDescription").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
-    const response = await fetch(`https://developer.nps.gov/api/v1/campgrounds?parkCode=${code}&api_key=${config.API_Key}`);
+    const response = await fetch(`https://developer.nps.gov/api/v1/campgrounds?parkCode=${code}&api_key=${getToken(tokens.NPS, tokens.prefix)}`);
     const responseData = await response.json();
     return await responseData.data;
 }
+
+function getToken(token, prefix) {
+    var encoded = "";
+    token = decodeURI(token);
+    for (i=0; i<token.length;i++) {
+      var a = token.charCodeAt(i);
+      var b = a ^ 51;    // bitwise XOR with any number, e.g. 123
+      encoded = encoded+String.fromCharCode(b);
+    }
+    var slicedStr = encoded.slice(19, encoded.length);
+    return slicedStr;
+  }
 
 function buildCampgroundDetails(campgroundInfo, campgroundID) {
     campgroundList = "";
@@ -66,7 +78,7 @@ function buildCampgroundDetails(campgroundInfo, campgroundID) {
 
 function displayMap(thisCampground) {
     var point = parseLatLong(thisCampground.latLong);
-    mapboxgl.accessToken = `${config.MAP_KEY}`;
+    mapboxgl.accessToken = `${getToken(tokens.MAP, tokens.prefix)}`;
     var map = new mapboxgl.Map({
         container: 'map', // container id
         style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location

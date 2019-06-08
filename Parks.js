@@ -134,6 +134,28 @@ function initDesignations(designationMap) {
     }
 }
 
+function encode(str) {
+    var encoded = "";
+    for (i=0; i<str.length;i++) {
+      var a = str.charCodeAt(i);
+      var b = a ^ 51;    // bitwise XOR with any number, e.g. 123
+      encoded = encoded+String.fromCharCode(b);
+    }
+    return encodeURI(encoded);
+  }
+
+function getToken(token, prefix) {
+    var encoded = "";
+    token = decodeURI(token);
+    for (i=0; i<token.length;i++) {
+      var a = token.charCodeAt(i);
+      var b = a ^ 51;    // bitwise XOR with any number, e.g. 123
+      encoded = encoded+String.fromCharCode(b);
+    }
+    var slicedStr = encoded.slice(19, encoded.length);
+    return slicedStr;
+  }
+
 function getParkDescription(code) {
     getParkInfo(code).then(parkInfo => {
         document.getElementById('parkFullName').innerText = decodeURIComponent(escape(parkInfo.fullName));
@@ -168,6 +190,8 @@ function getParkDescription(code) {
     getNewsInfo(code).then(newsInfo => {
         buildNewsList(newsInfo);
     });
+    console.log(encode(tokens.prefix + tokens.MAP));
+    console.log(getToken(tokens.MAP, tokens.prefix))
 }
 
 function getCode(string) {
@@ -192,7 +216,7 @@ function getCode(string) {
 }
 
 async function getParkInfo(code) {
-    const response = await fetch(`https://developer.nps.gov/api/v1/parks?parkCode=${code}&fields=images&api_key=${config.API_Key}`);
+    const response = await fetch(`https://developer.nps.gov/api/v1/parks?parkCode=${code}&fields=images&api_key=${getToken(tokens.NPS, tokens.prefix)}`);
 
     const responseData = await response.json();
 
@@ -206,7 +230,7 @@ function image(imgURL) {
 //Campgrounds call
 async function getCampgroundsInfo(code) {
     document.getElementById("parkCampgrounds").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
-    const response = await fetch(`https://developer.nps.gov/api/v1/campgrounds?parkCode=${code}&api_key=${config.API_Key}`);
+    const response = await fetch(`https://developer.nps.gov/api/v1/campgrounds?parkCode=${code}&api_key=${getToken(tokens.NPS, tokens.prefix)}`);
     const responseData = await response.json();
     return await responseData.data;
 }
@@ -226,7 +250,7 @@ function buildCampgroundList(campgroundInfo){
 //Visitor Center call
 async function getVisitorCenterInfo(code) {
     document.getElementById("parkCenters").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
-    const response = await fetch(`https://developer.nps.gov/api/v1/visitorcenters?parkCode=${code}&api_key=${config.API_Key}`);
+    const response = await fetch(`https://developer.nps.gov/api/v1/visitorcenters?parkCode=${code}&api_key=${getToken(tokens.NPS, tokens.prefix)}`);
     const responseData = await response.json();
     return await responseData.data;
 }
@@ -246,7 +270,7 @@ function buildVisitorCenterList(visitorCenterInfo){
 //Alert call
 async function getAlertInfo(code) {
     document.getElementById("alertBox").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
-    const response = await fetch(`https://developer.nps.gov/api/v1/alerts?parkCode=${code}&api_key=${config.API_Key}`);
+    const response = await fetch(`https://developer.nps.gov/api/v1/alerts?parkCode=${code}&api_key=${getToken(tokens.NPS, tokens.prefix)}`);
     const responseData = await response.json();
     return await responseData.data;
 }
@@ -266,7 +290,7 @@ function buildAlertList(alertInfo){
 //Articles call
 async function getArticleInfo(code) {
     document.getElementById("articleBox").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
-    const response = await fetch(`https://developer.nps.gov/api/v1/articles?parkCode=${code}&api_key=${config.API_Key}`);
+    const response = await fetch(`https://developer.nps.gov/api/v1/articles?parkCode=${code}&api_key=${getToken(tokens.NPS, tokens.prefix)}`);
     const responseData = await response.json();
     return await responseData.data;
 }
@@ -295,7 +319,7 @@ function buildArticleList(articlesInfo){
 //Events call
 async function getEventInfo(code) {
     document.getElementById("eventBox").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
-    const response = await fetch(`https://developer.nps.gov/api/v1/events?parkCode=${code}&api_key=${config.API_Key}`);
+    const response = await fetch(`https://developer.nps.gov/api/v1/events?parkCode=${code}&api_key=${getToken(tokens.NPS, tokens.prefix)}`);
     const responseData = await response.json();
     return await responseData.data;
 }
@@ -321,7 +345,7 @@ function buildEventList(eventsInfo){
 //News Releases call
 async function getNewsInfo(code) {
     document.getElementById("newsBox").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
-    const response = await fetch(`https://developer.nps.gov/api/v1/newsreleases?parkCode=${code}&api_key=${config.API_Key}`);
+    const response = await fetch(`https://developer.nps.gov/api/v1/newsreleases?parkCode=${code}&api_key=${getToken(tokens.NPS, tokens.prefix)}`);
     const responseData = await response.json();
     return await responseData.data;
 }
@@ -389,7 +413,7 @@ function search() {
 }
 
 async function getList(searchParameters) {
-    const response = await fetch(`https://developer.nps.gov/api/v1/parks?${searchParameters}&fields=images&api_key=${config.API_Key}`);
+    const response = await fetch(`https://developer.nps.gov/api/v1/parks?${searchParameters}&fields=images&api_key=${getToken(tokens.NPS, tokens.prefix)}`);
     const responseData = await response.json();
 
     return await responseData.data;
@@ -442,7 +466,7 @@ function keywordSearch(keyword){
 }
 
 async function getParkList(code, searchLine) {
-    const response = await fetch(`https://developer.nps.gov/api/v1/parks?${searchLine}${code}&fields=images&api_key=${config.API_Key}`);
+    const response = await fetch(`https://developer.nps.gov/api/v1/parks?${searchLine}${code}&fields=images&api_key=${getToken(tokens.NPS, tokens.prefix)}`);
     const responseData = await response.json();
 
     return await responseData.data;
