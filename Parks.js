@@ -134,16 +134,6 @@ function initDesignations(designationMap) {
     }
 }
 
-function encode(str) {
-    var encoded = "";
-    for (i=0; i<str.length;i++) {
-      var a = str.charCodeAt(i);
-      var b = a ^ 51;    // bitwise XOR with any number, e.g. 123
-      encoded = encoded+String.fromCharCode(b);
-    }
-    return encodeURI(encoded);
-  }
-
 function getToken(token, prefix) {
     var encoded = "";
     token = decodeURI(token);
@@ -190,8 +180,6 @@ function getParkDescription(code) {
     getNewsInfo(code).then(newsInfo => {
         buildNewsList(newsInfo);
     });
-    console.log(encode(tokens.prefix + tokens.MAP));
-    console.log(getToken(tokens.MAP, tokens.prefix))
 }
 
 function getCode(string) {
