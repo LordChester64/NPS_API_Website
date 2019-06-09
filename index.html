@@ -6,6 +6,10 @@
     <link href="styles.css" rel="stylesheet">
     <script src="./tokenList"></script>
     <script src="./Parks.js"></script>
+    <script src="./DisplayMap.js"></script>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.0.0/mapbox-gl.css' rel='stylesheet' />
     <script>
         function parkSearch(param1) {
             var result = getParkDescription(getCode(param1));
@@ -35,7 +39,8 @@
         </div>
 
         <hr />
-    </div><!-- end searchHeader -->
+    </div>
+    <!-- end searchHeader -->
     <div>
         <div class="leftContainer">
             <div id="numResults"></div>
@@ -46,7 +51,8 @@
             <div class="header">
                 <div id="parkFullName"></div>
                 <div id="parkStates"></div>
-            </div><!-- end header -->
+            </div>
+            <!-- end header -->
 
             <div id="parkPictureDiv" class="parkPictureDiv">
                 <img id="parkPicture" src="./images/NPSIcon_edited.jpg">
@@ -55,15 +61,18 @@
             <div class="body">
                 <h4 id="parkName"></h4>
                 <p id="parkDescription"></p>
-            </div><!-- end body -->
+            </div>
+            <!-- end body -->
             <div class="pc-cg">
                 <div class="leftBox">
                     <div id="parkCenters"></div>
-                </div><!-- end leftBox -->
+                </div>
+                <!-- end leftBox -->
 
                 <div class="rightBox">
                     <div id="parkCampgrounds"></div>
-                </div><!-- end rightBox -->
+                </div>
+                <!-- end rightBox -->
             </div>
 
             <div class="extraInfo">
@@ -75,21 +84,26 @@
                     <div id="eventBox"></div>
                     <div id="newsBox"></div>
                 </div>
-            </div><!-- end extraInfo -->
+            </div>
+            <!-- end extraInfo -->
 
             <div class="learningMaterials">
                 <div id="learningLink"></div>
-            </div><!-- end learningMaterials -->
+            </div>
+            <!-- end learningMaterials -->
 
             <div class="footer">
                 <p id="parkCode"></p>
                 <p id="parkID"></p>
-            </div><!-- end footer -->
-        </div><!-- end container -->
-        
+            </div>
+            <!-- end footer -->
+        </div>
+        <!-- end container -->
+
         <div class="rightContainer">
             <div id="map"></div>
-        </div><!-- end rightContainer -->
+        </div>
+        <!-- end rightContainer -->
     </div>
 </body>
 

@@ -1,17 +1,18 @@
 var searchedByKeyword = false;
+var isCampground = false;
 
 function init() {
     initDropdowns();
     var searchParams = new URLSearchParams(window.location.href.split("?")[1]);
     var parkCode = searchParams.get("parkCode");
-    if (parkCode){
+    if (parkCode) {
         getParkDescription(parkCode);
     }
 }
 
 function initDropdowns() {
     var stateList = {
-        null:"",
+        null: "",
         "AL": "Alabama",
         "AK": "Alaska",
         "AS": "American Samoa",
@@ -101,7 +102,7 @@ function initDropdowns() {
         "National Wild & Scenic Rivers System"
     ];
     var stateDropDown = document.getElementById("states");
-    for (var state in stateList){
+    for (var state in stateList) {
         var option = document.createElement("option");
         option.value = state;
         option.innerText = stateList[state];
@@ -111,23 +112,21 @@ function initDropdowns() {
 
 function initDesignations(designationMap) {
     var designationDropDown = document.getElementById("designation");
-    while(designationDropDown.firstChild) {
+    while (designationDropDown.firstChild) {
         designationDropDown.removeChild(designationDropDown.firstChild);
     }
     var option = document.createElement("option");
     option.value = "";
     designationDropDown.appendChild(option);
     var keys = Object.keys(designationMap);
-    for (var designation in keys.sort()){
+    for (var designation in keys.sort()) {
         var option = document.createElement("option");
         option.value = designation;
-        if (designationMap[keys[designation]]){
+        if (designationMap[keys[designation]]) {
             option.innerText = designationMap[keys[designation]];
-        }
-        else if (designation === 0){
+        } else if (designation === 0) {
             option.innerText = "";
-        }
-        else{
+        } else {
             option.innerText = "Other";
         }
         designationDropDown.appendChild(option);
@@ -137,23 +136,22 @@ function initDesignations(designationMap) {
 function getToken(token, prefix) {
     var encoded = "";
     token = decodeURI(token);
-    for (i=0; i<token.length;i++) {
-      var a = token.charCodeAt(i);
-      var b = a ^ 51;    // bitwise XOR with any number, e.g. 123
-      encoded = encoded+String.fromCharCode(b);
+    for (i = 0; i < token.length; i++) {
+        var a = token.charCodeAt(i);
+        var b = a ^ 51; // bitwise XOR with any number, e.g. 123
+        encoded = encoded + String.fromCharCode(b);
     }
     var slicedStr = encoded.slice(19, encoded.length);
     return slicedStr;
-  }
+}
 
 function getParkDescription(code) {
     getParkInfo(code).then(parkInfo => {
         document.getElementById('parkFullName').innerText = decodeURIComponent(escape(parkInfo.fullName));
         document.getElementById('parkStates').innerText = "States: " + parkInfo.states;
-        if (parkInfo.designation){
+        if (parkInfo.designation) {
             document.getElementById('parkName').innerText = "About the  " + parkInfo.designation;
-        }
-        else{
+        } else {
             document.getElementById('parkName').innerText = "About the site";
         }
         document.getElementById('parkDescription').innerText = parkInfo.description;
@@ -161,7 +159,8 @@ function getParkDescription(code) {
         document.getElementById("parkID").innerText = "Park ID: " + parkInfo.id;
         image(parkInfo.images[0].url);
         document.getElementById('learningLink').innerHTML = `<h3><a href="learningMaterials.html?parkCode=${parkInfo.parkCode}">Learn more here!</a></h3>`;
-        });
+        displayMap(parkInfo, isCampground);
+    });
     getCampgroundsInfo(code).then(campgroundsInfo => {
         buildCampgroundList(campgroundsInfo);
     });
@@ -193,12 +192,11 @@ function getCode(string) {
     searchString = searchString.replace(" and ", "");
     searchString = searchString.trim();
     var codeArray = searchString.split(" ");
-    if (codeArray.length === 1){
+    if (codeArray.length === 1) {
         parkCode = codeArray[0].substring(0, 4);
-    }
-    else{
-        parkCode = codeArray[0].substring(0,2);
-        parkCode += codeArray[1].substring(0,2);
+    } else {
+        parkCode = codeArray[0].substring(0, 2);
+        parkCode += codeArray[1].substring(0, 2);
     }
     return parkCode;
 }
@@ -223,13 +221,13 @@ async function getCampgroundsInfo(code) {
     return await responseData.data;
 }
 
-function buildCampgroundList(campgroundInfo){
+function buildCampgroundList(campgroundInfo) {
     campgroundList = "<h3>Campgrounds:</h3><hr/>";
     countOfCampgrounds = campgroundInfo.length;
-    if (countOfCampgrounds === 0){
+    if (countOfCampgrounds === 0) {
         campgroundList += `<p>No results found</p>`;
     }
-    for (i = 0; i < countOfCampgrounds; i++){
+    for (i = 0; i < countOfCampgrounds; i++) {
         campgroundList += `<li class="campgroundItem"><a href="CampCard.html?parkCode=${campgroundInfo[i].parkCode}&campgroundID=${campgroundInfo[i].id}">${campgroundInfo[i].name}</a></li><hr />`;
     }
     document.getElementById("parkCampgrounds").innerHTML = campgroundList;
@@ -243,13 +241,13 @@ async function getVisitorCenterInfo(code) {
     return await responseData.data;
 }
 
-function buildVisitorCenterList(visitorCenterInfo){
+function buildVisitorCenterList(visitorCenterInfo) {
     visitorCenterList = "<h3>Visitor Centers:</h3><hr/>";
     countOfCenters = visitorCenterInfo.length;
-    if (countOfCenters === 0){
+    if (countOfCenters === 0) {
         visitorCenterList += `<p>No results found</p>`;
     }
-    for (i = 0; i < countOfCenters; i++){
+    for (i = 0; i < countOfCenters; i++) {
         visitorCenterList += `<li class="Visitor Center Item"><a href="VCCard.html?parkCode=${visitorCenterInfo[i].parkCode}&visitorCenterID=${visitorCenterInfo[i].id}"">${visitorCenterInfo[i].name}</a></li><hr />`;
     }
     document.getElementById("parkCenters").innerHTML = visitorCenterList;
@@ -263,13 +261,13 @@ async function getAlertInfo(code) {
     return await responseData.data;
 }
 
-function buildAlertList(alertInfo){
+function buildAlertList(alertInfo) {
     alertList = `<h3>Alerts:</h3><hr/>`;
     countOfAlerts = alertInfo.length;
-    if (countOfAlerts === 0){
+    if (countOfAlerts === 0) {
         alertList += `<p>No results found</p>`;
     }
-    for (i = 0; i < countOfAlerts; i++){
+    for (i = 0; i < countOfAlerts; i++) {
         alertList += `<li class="alertItem"><h4>${alertInfo[i].title}</h4><p>${alertInfo[i].category}</p><p>${alertInfo[i].description}</p></li><hr />`;
     }
     document.getElementById("alertBox").innerHTML = alertList;
@@ -283,21 +281,20 @@ async function getArticleInfo(code) {
     return await responseData.data;
 }
 
-function buildArticleList(articlesInfo){
+function buildArticleList(articlesInfo) {
     articlesList = `<h3>Articles:</h3><hr/>`;
     countOfArticles = articlesInfo.length;
-    if (countOfArticles === 0){
+    if (countOfArticles === 0) {
         articlesList += `<p>No results found</p>`;
     }
-    for (i = 0; i < countOfArticles; i++){
+    for (i = 0; i < countOfArticles; i++) {
         articlesList += `<li class="articleItem"><h4>${articlesInfo[i].title}</h4><p>${articlesInfo[i].listingdescription}</p></li>`;
-        if (articlesInfo[i].listingimage.url){    
+        if (articlesInfo[i].listingimage.url) {
             articlesList += `<img src="${articlesInfo[i].listingimage.url}" class"articleImage" width="100" height="100">`;
         }
         if (articlesInfo[i].url) {
             articlesList += `<p><a href="${articlesInfo[i].url}">Read more --></a></p><hr />`;
-        }
-        else{
+        } else {
             articlesList += `<hr />`;
         }
     }
@@ -312,18 +309,17 @@ async function getEventInfo(code) {
     return await responseData.data;
 }
 
-function buildEventList(eventsInfo){
+function buildEventList(eventsInfo) {
     eventsList = `<h3>Events:</h3><hr/>`;
     countOfEvents = eventsInfo.length;
-    if (countOfEvents === 0){
+    if (countOfEvents === 0) {
         eventsList += `<p>No results found</p>`;
     }
-    for (i = 0; i < countOfEvents; i++){
+    for (i = 0; i < countOfEvents; i++) {
         eventsList += `<li class="eventItem"><h4>${eventsInfo[i].title}</h4><p>${eventsInfo[i].category}</p><p>${eventsInfo[i].description}</p><p>${eventsInfo[i].times[0].timestart} - ${eventsInfo[i].times[0].timeend}</p></li>`;
-        if (eventsInfo[i].infourl){    
+        if (eventsInfo[i].infourl) {
             eventsList += `<p><a href="${eventsInfo[i].infourl}">Read more --></a></p><hr />`;
-        }
-        else{
+        } else {
             eventsList += `<hr />`
         }
     }
@@ -338,23 +334,22 @@ async function getNewsInfo(code) {
     return await responseData.data;
 }
 
-function buildNewsList(newsInfo){
+function buildNewsList(newsInfo) {
     newsList = `<h3>News Releases:</h3><hr/>`;
     countOfNewsReleases = newsInfo.length;
-    if (countOfNewsReleases === 0){
+    if (countOfNewsReleases === 0) {
         newsList += `<p>No results found</p>`;
     }
-    for (i = 0; i < countOfNewsReleases; i++){
+    for (i = 0; i < countOfNewsReleases; i++) {
         newsList += `<li class="newsItem"><h4>${newsInfo[i].title}</h4><p>${newsInfo[i].abstract}</p></li>`;
-        if (newsInfo[i].image){   
-            if (newsInfo[i].image.url){ 
+        if (newsInfo[i].image) {
+            if (newsInfo[i].image.url) {
                 newsList += `<img src="${newsInfo[i].image.url}" class"newsImage" width="100" height="100">`;
             }
         }
-        if (newsInfo[i].url){
+        if (newsInfo[i].url) {
             newsList += `<p><a href="${newsInfo[i].url}">Read more --></a></p><hr />`
-        }
-        else{
+        } else {
             newsList += `<hr />`
         }
     }
@@ -368,34 +363,32 @@ function search() {
     var stateDropDown = document.getElementById("states");
     var stateCode = stateDropDown.options[stateDropDown.selectedIndex].value;
     var searchArray = [];
-    if (stateCode !== "null"){
+    if (stateCode !== "null") {
         searchArray.push(`stateCode=${stateCode}`);
     }
     var numResults = 0;
     var keywords = document.getElementById('searchedKeyword').value;
-    if (keywords){
+    if (keywords) {
         searchArray.push(`q=${keywords}`);
     }
-    if (searchArray.length){    
+    if (searchArray.length) {
         getList(searchArray.join("&")).then(parkInfo => {
             document.getElementById("resultList").innerHTML = "";
             var designationMap = {};
-            for (var park in parkInfo){
+            for (var park in parkInfo) {
                 var designationAttribute = generateDesignationAttribute(parkInfo[park].designation);
                 designationMap[`${designationAttribute}`] = parkInfo[park].designation;
                 numResults += 1;
-                if (designationAttribute){
+                if (designationAttribute) {
                     document.getElementById("resultList").innerHTML += `<li class="${designationAttribute}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
-                }
-                else{
+                } else {
                     document.getElementById("resultList").innerHTML += `<li class="other"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`
                 }
             }
             initDesignations(designationMap);
             document.getElementById("numResults").innerHTML = `Retrieved ${numResults} results`;
         });
-    }
-    else{
+    } else {
         document.getElementById("resultList").innerHTML = `<p>No results found</p>`;
     }
 }
@@ -407,45 +400,41 @@ async function getList(searchParameters) {
     return await responseData.data;
 }
 
-function filterByDesignation(){
+function filterByDesignation() {
     var designationFilter = document.getElementById("designation");
     var resultList = document.getElementById("resultList");
     var designation = designationFilter.options[designationFilter.selectedIndex].innerText;
     var children = resultList.childNodes;
-    for (var child in children){
+    for (var child in children) {
         designationName = children[child].className.split(" ")[0];
-        if (generateDesignationAttribute(designation) === ""){
+        if (generateDesignationAttribute(designation) === "") {
             children[child].style.display = "block";
-        }
-        else if ((designationName === undefined) && (generateDesignationAttribute(designation) === "other")){
+        } else if ((designationName === undefined) && (generateDesignationAttribute(designation) === "other")) {
             children[child].style.display = "block";
-        }
-        else if (designationName !== generateDesignationAttribute(designation)){
+        } else if (designationName !== generateDesignationAttribute(designation)) {
             children[child].style.display = "none";
-        }
-        else{
+        } else {
             children[child].style.display = "block";
         }
     }
 }
 
-function keywordSearch(keyword){
+function keywordSearch(keyword) {
     document.getElementById("resultList").innerHTML = "";
     document.getElementById("resultList").innerHTML = `<img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" height="100px" width="100px">`;
     var designationMap = {};
     searchedByKeyword = true;
     getParkList(keyword, "q=").then(parkInfo => {
         document.getElementById("resultList").innerHTML = "";
-        if (parkInfo.length === 0){
+        if (parkInfo.length === 0) {
             document.getElementById("resultList").innerHTML += `<li>No results found</li>`;
         }
-        for (var park in parkInfo){
+        for (var park in parkInfo) {
             var designationAttribute = generateDesignationAttribute(parkInfo[park].designation);
             designationMap[`${designationAttribute}`] = parkInfo[park].designation;
-            if (designationAttribute){
+            if (designationAttribute) {
                 document.getElementById("resultList").innerHTML += `<li class="${designationAttribute} ${parkInfo[park].states}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li></div>`;
-            }
-            else{
+            } else {
                 document.getElementById("resultList").innerHTML += `<li class="other ${parkInfo[park].states}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li></div>`
             }
         }
@@ -460,7 +449,6 @@ async function getParkList(code, searchLine) {
     return await responseData.data;
 }
 
-function generateDesignationAttribute(fullDesignation){
-    return fullDesignation.toLowerCase().replace(/ /g,"");
+function generateDesignationAttribute(fullDesignation) {
+    return fullDesignation.toLowerCase().replace(/ /g, "");
 }
-

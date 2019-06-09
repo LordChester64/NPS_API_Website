@@ -1,4 +1,5 @@
 function displayMap(thisLocation, isCampground) {
+    var iconType;
     var point = parseLatLong(thisLocation.latLong);
     mapboxgl.accessToken = `${getToken(tokens.MAP, tokens.prefix)}`;
     var map = new mapboxgl.Map({
@@ -7,35 +8,38 @@ function displayMap(thisLocation, isCampground) {
         center: [point.long, point.lat], // starting position [lng, lat]
         zoom: 9 // starting zoom
     });
-    if (isCampground){
-        map.on('load', function () {
-            map.loadImage('./images/campsite.jpeg', function (error, image) {
-                if (error) throw error;
-                map.addImage('campsite', image);
-                map.addLayer({
-                    "id": "points",
-                    "type": "symbol",
-                    "source": {
-                        "type": "geojson",
-                        "data": {
-                            "type": "FeatureCollection",
-                            "features": [{
-                                "type": "Feature",
-                                "geometry": {
-                                    "type": "Point",
-                                    "coordinates": [point.long, point.lat]
-                                }
-                            }]
-                        }
-                    },
-                    "layout": {
-                        "icon-image": "campsite",
-                        "icon-size": 0.1
+    if (isCampground) {
+        iconType = "campsite";
+    } else {
+        iconType = "flag";
+    }
+    map.on('load', function() {
+        map.loadImage(`./images/${iconType}.jpeg`, function(error, image) {
+            if (error) throw error;
+            map.addImage(`${iconType}`, image);
+            map.addLayer({
+                "id": "points",
+                "type": "symbol",
+                "source": {
+                    "type": "geojson",
+                    "data": {
+                        "type": "FeatureCollection",
+                        "features": [{
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [point.long, point.lat]
+                            }
+                        }]
                     }
-                });
+                },
+                "layout": {
+                    "icon-image": `${iconType}`,
+                    "icon-size": 0.1
+                }
             });
         });
-    }
+    });
 }
 
 function parseLatLong(latLong) {
