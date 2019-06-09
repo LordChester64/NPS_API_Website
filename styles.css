@@ -7,7 +7,9 @@
 
 */
 
+
 /* Simple CSS */
+
 h3 {
     margin: 10px 2px;
 }
@@ -20,9 +22,11 @@ h6 {
     margin: 2px 2px 0px;
 }
 
+
 /* Main page formatting */
+
 .searchHeader {
-    margin: 2px 20px 2px 2px; 
+    margin: 2px 20px 2px 2px;
 }
 
 #states {
@@ -34,24 +38,39 @@ h6 {
 }
 
 #nameButton {
-    margin: 2px 20px 2px 2px; 
+    margin: 2px 20px 2px 2px;
 }
 
 .leftContainer {
     height: 1350px;
-    width: 330px;
-    float: left;
+    width: 19%;
     margin: 10px;
+    display: inline-block;
+    z-index: 20;
+}
+
+.rightContainer {
+    height: 1350px;
+    width: 17%;
+    position: absolute;
+    top: 20;
+    right: 0;
+    margin: 10px;
+    display: inline-block;
+    z-index: 20;
 }
 
 .container {
     background: rgb(236, 193, 137);
     border: solid 8px rgb(54, 99, 48);
     height: 1375px;
-    width: 800px;
+    width: 55%;
+    min-width: 800px;
     margin: 10px auto;
     position: relative;
-    float: left;
+    display: inline-block;
+    vertical-align: top;
+    z-index: 100;
 }
 
 #parkFullName {
@@ -87,6 +106,11 @@ h6 {
     margin: 10px 10px 10px 15px;
 }
 
+.pc-cg {
+    display: inline-block;
+    width: 100%;
+}
+
 .leftBox {
     margin: 10px 0px;
     border: double 3px rgb(21, 56, 30);
@@ -106,8 +130,10 @@ h6 {
     margin: 10px 0px;
     border: double 3px rgb(21, 56, 30);
     height: 250px;
-    width: 49.25%;
-    float: right;
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: -4px;
 }
 
 .rightBox h4 {
@@ -233,6 +259,7 @@ a:hover {
     position: relative;
 }
 
+
 /* CampCard formatting */
 
 .campgroundContainer {
@@ -247,6 +274,7 @@ a:hover {
 #campgroundName {
     margin: 4px;
 }
+
 
 /* #amenityIcons {
     padding: 10px;
@@ -264,10 +292,11 @@ a:hover {
     color: lightgray;
 }
 
-#map { 
-    width:100%; 
+#map {
+    width: 100%;
     height: 100%;
 }
+
 
 /* learningMaterials formatting */
 
