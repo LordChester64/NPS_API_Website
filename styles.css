@@ -8,6 +8,10 @@
 */
 
 /* Simple CSS */
+h3 {
+    margin: 10px 2px;
+}
+
 h5 {
     margin: 2px 2px 0px;
 }
@@ -98,7 +102,6 @@ h6 {
     margin: 2px 2px 5px 2px;
 }
 
-
 .rightBox {
     margin: 10px 0px;
     border: double 3px rgb(21, 56, 30);
@@ -131,6 +134,10 @@ h6 {
     width: 49.5%;
 }
 
+.alertItem {
+    margin: 2px;
+}
+
 #articleBox {
     overflow-y: scroll;
     border: solid 1px black;
@@ -138,6 +145,10 @@ h6 {
     float: right;
     height: 250px;
     width: 49.5%;
+}
+
+.articleItem {
+    margin: 2px;
 }
 
 #eventBox {
@@ -149,6 +160,10 @@ h6 {
     width: 49.5%;
 }
 
+.eventItem {
+    margin: 2px;
+}
+
 #newsBox {
     overflow-y: scroll;
     border: solid 1px black;
@@ -156,6 +171,10 @@ h6 {
     float: right;
     height: 250px;
     width: 49.5%;
+}
+
+.newsItem {
+    margin: 2px;
 }
 
 .footer {
