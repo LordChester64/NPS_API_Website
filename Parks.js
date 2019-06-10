@@ -380,9 +380,9 @@ function search() {
                 designationMap[`${designationAttribute}`] = parkInfo[park].designation;
                 numResults += 1;
                 if (designationAttribute) {
-                    document.getElementById("resultList").innerHTML += `<li class="${designationAttribute}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
+                    document.getElementById("resultList").innerHTML += `<li class="${designationAttribute}"><a href="index.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`;
                 } else {
-                    document.getElementById("resultList").innerHTML += `<li class="other"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`
+                    document.getElementById("resultList").innerHTML += `<li class="other"><a href="index.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li>`
                 }
             }
             initDesignations(designationMap);
@@ -433,9 +433,9 @@ function keywordSearch(keyword) {
             var designationAttribute = generateDesignationAttribute(parkInfo[park].designation);
             designationMap[`${designationAttribute}`] = parkInfo[park].designation;
             if (designationAttribute) {
-                document.getElementById("resultList").innerHTML += `<li class="${designationAttribute} ${parkInfo[park].states}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li></div>`;
+                document.getElementById("resultList").innerHTML += `<li class="${designationAttribute} ${parkInfo[park].states}"><a href="index.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li></div>`;
             } else {
-                document.getElementById("resultList").innerHTML += `<li class="other ${parkInfo[park].states}"><a href="card.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li></div>`
+                document.getElementById("resultList").innerHTML += `<li class="other ${parkInfo[park].states}"><a href="index.html?parkCode=${parkInfo[park].parkCode}">${parkInfo[park].name}</a></li></div>`
             }
         }
         initDesignations(designationMap);
