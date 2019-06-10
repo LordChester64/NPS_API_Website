@@ -1,4 +1,4 @@
-function getVisitorCenterDescription(){
+function getVisitorCenterDescription() {
     var searchParams = new URLSearchParams(window.location.href.split("?")[1]);
     var parkCode = searchParams.get("parkCode");
     var visitorCenterID = searchParams.get("visitorCenterID");
@@ -16,21 +16,21 @@ async function getVisitorCenterInfo(code) {
 function getToken(token, prefix) {
     var encoded = "";
     token = decodeURI(token);
-    for (i=0; i<token.length;i++) {
-      var a = token.charCodeAt(i);
-      var b = a ^ 51;    // bitwise XOR with any number, e.g. 123
-      encoded = encoded+String.fromCharCode(b);
+    for (i = 0; i < token.length; i++) {
+        var a = token.charCodeAt(i);
+        var b = a ^ 51; // bitwise XOR with any number, e.g. 123
+        encoded = encoded + String.fromCharCode(b);
     }
     var slicedStr = encoded.slice(19, encoded.length);
     return slicedStr;
-  }
+}
 
 
-function buildVisitorCenterDetails(visitorCenterInfo, visitorCenterID){
+function buildVisitorCenterDetails(visitorCenterInfo, visitorCenterID) {
     visitorCenterList = "";
     countOfVisitorCenters = visitorCenterInfo.length;
-    for (i = 0; i < countOfVisitorCenters; i++){
-        if (visitorCenterID === visitorCenterInfo[i].id){
+    for (i = 0; i < countOfVisitorCenters; i++) {
+        if (visitorCenterID === visitorCenterInfo[i].id) {
             thisVisitorCenter = visitorCenterInfo[i];
             break;
         }
@@ -38,5 +38,7 @@ function buildVisitorCenterDetails(visitorCenterInfo, visitorCenterID){
     document.getElementById("visitorCenterName").innerText = `${thisVisitorCenter.name}`;
     document.getElementById("visitorCenterNameHeading").innerText = `About ${thisVisitorCenter.name}:`;
     document.getElementById("visitorCenterDescription").innerText = `${thisVisitorCenter.description}`;
-    document.getElementById("visitorCenterURL").innerHTML = `<a href="${thisVisitorCenter.url}">Learn More Here!</a>`;
+    if (thisVisitorCenter.url) {
+        document.getElementById("visitorCenterURL").innerHTML = `<a href="${thisVisitorCenter.url}">Learn More Here!</a>`;
+    }
 }

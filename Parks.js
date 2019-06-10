@@ -159,7 +159,11 @@ function getParkDescription(code) {
         document.getElementById("parkID").innerText = "Park ID: " + parkInfo.id;
         image(parkInfo.images[0].url);
         document.getElementById('learningLink').innerHTML = `<h3><a href="learningMaterials.html?parkCode=${parkInfo.parkCode}">Learn more here!</a></h3>`;
-        displayMap(parkInfo, isCampground);
+        if (parkInfo.latlong) {
+            displayMap(parkInfo, isCampground);
+        } else {
+            document.getElementById("map").innerHTML = `<p>No map available</p>`;
+        }
     });
     getCampgroundsInfo(code).then(campgroundsInfo => {
         buildCampgroundList(campgroundsInfo);

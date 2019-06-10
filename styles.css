@@ -65,7 +65,7 @@ h6 {
 .container {
     background: rgb(236, 193, 137);
     border: solid 8px rgb(54, 99, 48);
-    height: 1375px;
+    height: 1425px;
     width: 55%;
     min-width: 800px;
     margin: 10px auto;
@@ -261,6 +261,18 @@ a:hover {
     position: relative;
 }
 
+#visitorCenterNameHeading {
+    margin: 40px 10px 0px;
+}
+
+#visitorCenterDescription {
+    margin: 40px 10px 0px;
+}
+
+#visitorCenterName {
+    margin: 40px 10px 0px;
+}
+
 
 /* CampCard formatting */
 
@@ -297,6 +309,8 @@ a:hover {
 #map {
     width: 100%;
     height: 100%;
+    color: lightgray;
+    margin: 10px;
 }
 
 
