@@ -1,13 +1,21 @@
 function displayMap(thisLocation, isCampground) {
     var iconType;
+    var hasValue = true;
     var point = parseLatLong(thisLocation.latLong);
     mapboxgl.accessToken = `${getToken(tokens.MAP, tokens.prefix)}`;
-    var map = new mapboxgl.Map({
-        container: 'map', // container id
-        style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-        center: [point.long, point.lat], // starting position [lng, lat]
-        zoom: 9 // starting zoom
-    });
+    if (point.long == 0) {
+        hasValue = false;
+    }
+    if (hasValue) {
+        var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+            center: [point.long, point.lat], // starting position [lng, lat]
+            zoom: 9 // starting zoom
+        });
+    } else {
+        document.getElementById("map").innerHTML = `<p id="errorMessage">No map available</p>`;
+    }
     if (isCampground) {
         iconType = "campsite";
     } else {
